@@ -3,9 +3,6 @@ providers = ["node"]
 [variables]
 NIXPACKS_NODE_VERSION = "22"
 
-[phases.setup]
-nixPkgs = ["nodejs_22", "npm"]
-
 [phases.install]
 cmds = ["npm ci"]
 
