@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { APP_NAME } from '../config';
 
@@ -35,6 +36,14 @@ function buildAppUrl(path: string) {
   return `vamora://open/${path}`;
 }
 
+function AutoOpenApp({ appUrl }: { appUrl: string }) {
+  useEffect(() => {
+    window.location.assign(appUrl);
+  }, [appUrl]);
+
+  return null;
+}
+
 function AppActions({ appUrl }: { appUrl: string }) {
   return (
     <div className="hero-actions">
@@ -55,11 +64,12 @@ export function OpenAppFallback({ screen }: OpenAppFallbackProps) {
 
   return (
     <section className="hero container-narrow">
+      <AutoOpenApp appUrl={appUrl} />
       <span className="eyebrow">{APP_NAME} app link</span>
       <h1>Open {title} in {APP_NAME}</h1>
       <p>
-        This link opens the {title.toLowerCase()} screen in the mobile app. If
-        the app does not open, install {APP_NAME} and return to this page.
+        Opening the {title.toLowerCase()} screen in the mobile app. If the app
+        does not open, install {APP_NAME} and return to this page.
       </p>
       {requiresLogin && (
         <p className="text-muted">
@@ -81,12 +91,13 @@ export function JoinInvitePage() {
   return (
     <>
       <section className="hero container-narrow">
+        <AutoOpenApp appUrl={appUrl} />
         <span className="eyebrow">Competition invite</span>
         <h1>Join a {APP_NAME} Competition</h1>
         <p>
-          Open this invitation in the {APP_NAME} app to join the competition.
-          If you do not have the app installed yet, install it first and then
-          return to this page.
+          Opening this invitation in the {APP_NAME} app to join the
+          competition. If you do not have the app installed yet, install it
+          first and then return to this page.
         </p>
         <AppActions appUrl={appUrl} />
       </section>
@@ -117,11 +128,12 @@ export function CompetitionFallbackPage() {
 
   return (
     <section className="hero container-narrow">
+      <AutoOpenApp appUrl={appUrl} />
       <span className="eyebrow">Competition</span>
       <h1>Open Competition</h1>
       <p>
-        This competition is best viewed in the {APP_NAME} mobile app. Open the
-        app to see competition details, fixtures, and standings.
+        Opening this competition in the {APP_NAME} mobile app so you can see
+        competition details, fixtures, and standings.
       </p>
       {id && (
         <p className="text-muted">
