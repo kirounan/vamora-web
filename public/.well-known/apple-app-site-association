@@ -1,0 +1,68 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appIDs": ["REPLACE_WITH_IOS_TEAM_ID.REPLACE_WITH_IOS_BUNDLE_ID"],
+        "components": [
+          {
+            "/": "/",
+            "comment": "Public web landing/home"
+          },
+          {
+            "/": "/home",
+            "comment": "Mobile app home"
+          },
+          {
+            "/": "/upcoming",
+            "comment": "Mobile app upcoming games tab"
+          },
+          {
+            "/": "/play",
+            "comment": "Mobile app play/create tab"
+          },
+          {
+            "/": "/profile",
+            "comment": "Mobile app profile tab"
+          },
+          {
+            "/": "/settings",
+            "comment": "Mobile app settings screen"
+          },
+          {
+            "/": "/join/*",
+            "comment": "Competition invite links"
+          },
+          {
+            "/": "/join",
+            "comment": "Manual competition invite fallback"
+          },
+          {
+            "/": "/play/*",
+            "comment": "Join page aliases under play"
+          },
+          {
+            "/": "/c/*",
+            "comment": "Short competition invite alias"
+          },
+          {
+            "/": "/competition/*",
+            "comment": "Competition details"
+          },
+          {
+            "/": "/competitions/*",
+            "comment": "Competition aliases"
+          },
+          {
+            "/": "/login",
+            "comment": "Mobile login fallback"
+          },
+          {
+            "/": "/signup",
+            "comment": "Mobile signup fallback"
+          }
+        ]
+      }
+    ]
+  }
+}
