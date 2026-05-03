@@ -90,9 +90,18 @@ contents of `dist/` can be uploaded to any static host:
 - **Cloudflare Pages / Vercel / Netlify** — connect this repository, set the
   build command to `npm run build` and the output directory to `dist`. They
   auto-handle SPA fallback for client-side routing.
+- **Dokploy / Coolify / Nixpacks (VPS)** — this repo ships with a
+  [`nixpacks.toml`](./nixpacks.toml) that pins Node 22 and runs:
+  - `install`: `npm ci`
+  - `build`:   `npm run build`
+  - `start`:   `npm run start` (serves `dist/` via [`serve`](https://www.npmjs.com/package/serve) with SPA fallback on the port from `$PORT`).
 - **Any static file server** — make sure unknown paths (e.g.
   `/privacy-policy`, `/delete-account`) fall back to `index.html` so React
   Router can handle them.
+
+> **Node version**: Vite 8 requires Node 20.19+ / 22.12+. The repo enforces
+> Node 22 via `engines.node` in `package.json`, an `.nvmrc` file, and the
+> `nixpacks.toml` config.
 
 Once hosted, add the public URLs of `/privacy-policy` and `/delete-account` to
 your Google Play Console and App Store Connect listings.
