@@ -30,6 +30,10 @@
             "comment": "Mobile app settings screen"
           },
           {
+            "/": "/captain-invite/*",
+            "comment": "Captain team invitation links"
+          },
+          {
             "/": "/join/*",
             "comment": "Competition invite links"
           },

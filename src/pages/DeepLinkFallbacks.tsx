@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { APP_NAME } from '../config';
 
@@ -37,8 +37,15 @@ function buildAppUrl(path: string) {
 }
 
 function AutoOpenApp({ appUrl }: { appUrl: string }) {
+  const lastAttempt = useRef<string | null>(null);
   useEffect(() => {
-    window.location.assign(appUrl);
+    if (lastAttempt.current === appUrl) return;
+    lastAttempt.current = appUrl;
+    try {
+      window.location.assign(appUrl);
+    } catch {
+      // Some browsers require a user gesture. Keep the app-open button usable.
+    }
   }, [appUrl]);
 
   return null;
@@ -118,6 +125,30 @@ export function JoinInvitePage() {
         </article>
       </section>
     </>
+  );
+}
+
+export function CaptainInvitePage() {
+  const { token } = useParams();
+  // Invitation tokens are case-sensitive; never treat them as join codes.
+  const appUrl = buildAppUrl(`captain-invite/${encodeURIComponent(token ?? '')}`);
+
+  return (
+    <section className="hero container-narrow">
+      <AutoOpenApp appUrl={appUrl} />
+      <span className="eyebrow">Captain invitation</span>
+      <h1>Set up your team in {APP_NAME}</h1>
+      <p>
+        Opening your captain invitation in the {APP_NAME} app. Sign in there
+        to accept the invitation and add your team.
+      </p>
+      <p className="text-muted">
+        If the app does not open automatically, tap the button below. If you
+        have not installed {APP_NAME} yet, install it and reopen this link.
+        In an in-app browser, you may need to open this page in Safari or Chrome.
+      </p>
+      <AppActions appUrl={appUrl} />
+    </section>
   );
 }
 

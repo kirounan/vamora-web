@@ -25,6 +25,7 @@ as a fully static site.
 | `/settings`        | Mobile settings deep-link fallback.                                      |
 | `/join`            | Manual competition invite fallback.                                      |
 | `/join/:code`      | Primary competition invite fallback with an app-open CTA.                |
+| `/captain-invite/:token` | Captain invitation fallback; opens the exact invitation in the app. |
 | `/c/:code`         | Short competition invite alias, redirected to `/join/:code`.             |
 | `/competition/:id` | Competition details fallback with an app-open CTA.                       |
 | `/competitions/:id` | Competition details alias, redirected to `/competition/:id`.            |
@@ -92,6 +93,9 @@ npm run preview
 
 # lint
 npm run lint
+
+# deep-link route regression checks
+npm test
 ```
 
 Node 18+ is recommended (this repo was built with Node 22).
@@ -111,7 +115,7 @@ contents of `dist/` can be uploaded to any static host:
   [`nixpacks.toml`](./nixpacks.toml) that pins Node 22 and runs:
   - `install`: `npm ci`
   - `build`:   `npm run build`
-  - `start`:   `npm run start` (serves `dist/` via [`serve`](https://www.npmjs.com/package/serve) with SPA fallback on the port from `$PORT`).
+  - `start`:   `npm run start` (serves `dist/` via [`serve`](https://www.npmjs.com/package/serve) with the configured SPA fallback on the port from `$PORT`).
 - **Any static file server** — make sure unknown paths (e.g.
   `/privacy-policy`, `/delete-account`) fall back to `index.html` so React
   Router can handle them.
@@ -131,6 +135,25 @@ The app-link association files are served from:
 Replace the placeholder Android package name, Android SHA-256 signing
 fingerprint, iOS Team ID, and iOS bundle ID in those files before relying on
 Universal Links or Android App Links verification.
+
+Captain links use `https://vamora.cloud/captain-invite/:token`. If the OS opens
+the website, the fallback attempts `vamora://open/captain-invite/:token` and
+offers an explicit **Open in Vamora App** button for browsers that require a
+tap. The token's case is preserved. The website never claims the invitation;
+acceptance and authentication happen in the app. Browsers without the app or
+with external-app navigation blocked cannot complete the handoff automatically.
+
+The mobile package/bundle ID is `com.vamora.fanasicomob`. Verified HTTPS opening
+also requires the real Google Play app-signing SHA-256 fingerprint (not merely
+an upload-key fingerprint) and Apple Team ID. Do not invent those values. Serve
+both association files as JSON on `vamora.cloud` and `www.vamora.cloud`, without
+redirects or an HTML fallback. The Apple file must include `/captain-invite/*`.
+`public/serve.json` is copied into `dist` and supplies these content types and
+SPA rewrites for the standalone `serve dist` server. Rewrites deliberately
+exclude dot-prefixed paths so the extensionless Apple association is served
+as a file. Do not add `-s`: its catch-all rewrite can return the SPA HTML for
+that file. Vercel and `_headers` configurations supply the JSON header rules
+for their hosts.
 
 ---
 
