@@ -23,7 +23,7 @@ test('captain link renders app handoff and preserves the exact case-sensitive to
   assert.ok(html.includes('href="vamora://open/captain-invite/AbC_123-xYz"'));
   assert.ok(html.includes('Set up your team'));
   assert.ok(html.includes('Open in Vamora App'));
-  assert.ok(html.includes('Sign in there'));
+  assert.ok(html.includes('request approval inside the competition'));
 });
 
 test('encoded token remains one path segment and cannot introduce app URL parameters', () => {
@@ -40,4 +40,14 @@ test('Apple association and standalone static server cover captain handoff', asy
   assert.ok(association.applinks.details.some(detail => detail.components.some(rule => rule['/'] === '/captain-invite/*')));
   const config = JSON.parse(await readFile('public/serve.json', 'utf8'));
   assert.ok(config.headers.some(rule => rule.source === '.well-known/apple-app-site-association' && rule.headers.some(h => h.key === 'Content-Type' && h.value === 'application/json')));
+});
+
+test('team invitation preserves token and explains explicit confirmation', () => {
+ const html = renderRoute('/team-invite/AbC_x-123');
+ assert.ok(html.includes('href="vamora://open/team-invite/AbC_x-123"'));
+ assert.ok(html.includes('confirm joining the team'));
+ assert.ok(html.includes('lang="ar"'));
+});
+test('team token cannot inject query parameters', () => {
+ assert.ok(renderRoute('/team-invite/AbC%3Fnext%3Dx').includes('href="vamora://open/team-invite/AbC%3Fnext%3Dx"'));
 });

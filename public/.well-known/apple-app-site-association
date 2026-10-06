@@ -5,6 +5,7 @@
       {
         "appIDs": ["REPLACE_WITH_IOS_TEAM_ID.REPLACE_WITH_IOS_BUNDLE_ID"],
         "components": [
+          {"/": "/team-invite/*", "comment": "Team invitations"},
           {
             "/": "/",
             "comment": "Public web landing/home"

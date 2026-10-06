@@ -13,6 +13,7 @@ import DeleteAccount from './pages/DeleteAccount';
 import NotFound from './pages/NotFound';
 import {
   CaptainInvitePage,
+  TeamInvitePage,
   CompetitionFallbackPage,
   JoinInvitePage,
   OpenAppFallback,
@@ -57,6 +58,7 @@ export default function App() {
           />
           <Route path="join" element={<JoinInvitePage />} />
           <Route path="join/:competitionCode" element={<JoinInvitePage />} />
+          <Route path="team-invite/:token" element={<TeamInvitePage />} />
           <Route path="captain-invite/:token" element={<CaptainInvitePage />} />
           <Route path="c/:competitionCode" element={<RedirectToJoin />} />
           <Route

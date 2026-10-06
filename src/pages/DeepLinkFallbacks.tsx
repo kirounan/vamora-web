@@ -139,8 +139,7 @@ export function CaptainInvitePage() {
       <span className="eyebrow">Captain invitation</span>
       <h1>Set up your team in {APP_NAME}</h1>
       <p>
-        Opening your captain invitation in the {APP_NAME} app. Sign in there
-        to accept the invitation and add your team.
+        New captains now request approval inside the competition. Unused captain links no longer grant captain access. Previously claimed setup remains available in the app.
       </p>
       <p className="text-muted">
         If the app does not open automatically, tap the button below. If you
@@ -174,4 +173,18 @@ export function CompetitionFallbackPage() {
       <AppActions appUrl={appUrl} />
     </section>
   );
+}
+
+export function TeamInvitePage() {
+  const { token } = useParams();
+  const appUrl = buildAppUrl(`team-invite/${encodeURIComponent(token ?? '')}`);
+  return <section className="hero container-narrow">
+    <AutoOpenApp appUrl={appUrl} />
+    <span className="eyebrow">Team invitation · دعوة فريق</span>
+    <h1>Join your team in {APP_NAME}</h1>
+    <p>Open the app, sign in, and confirm joining the team. Opening this link alone does not add you to the roster.</p>
+    <p lang="ar" dir="rtl">افتح التطبيق وسجل دخولك وأكد انضمامك للفريق. فتح اللينك لوحده مش بيضيفك للفريق.</p>
+    <p className="text-muted">If you have not installed the app, install it and reopen this link. You can also open this page in Safari or Chrome.</p>
+    <AppActions appUrl={appUrl} />
+  </section>;
 }
