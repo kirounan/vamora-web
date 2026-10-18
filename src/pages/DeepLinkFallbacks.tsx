@@ -1,41 +1,17 @@
-import { useEffect, useRef } from 'react';
-import { Link, useParams } from 'react-router-dom';
-import { APP_NAME } from '../config';
+import { useEffect, useRef } from "react";
+import { Link, useParams } from "react-router-dom";
+import { useLocale } from "../lib/locale";
+import StoreLinks from "../components/StoreLinks";
+import Icon from "../components/Icon";
 
 type AppScreen =
-  | 'home'
-  | 'upcoming'
-  | 'play'
-  | 'profile'
-  | 'settings'
-  | 'login'
-  | 'signup';
-
-type OpenAppFallbackProps = {
-  screen: AppScreen;
-};
-
-const screenLabels: Record<AppScreen, string> = {
-  home: 'Home',
-  upcoming: 'Upcoming Games',
-  play: 'Play',
-  profile: 'Profile',
-  settings: 'Settings',
-  login: 'Log In',
-  signup: 'Sign Up',
-};
-
-const authRequiredScreens = new Set<AppScreen>([
-  'profile',
-  'settings',
-  'login',
-  'signup',
-]);
-
-function buildAppUrl(path: string) {
-  return `vamora://open/${path}`;
-}
-
+  | "home"
+  | "upcoming"
+  | "play"
+  | "profile"
+  | "settings"
+  | "login"
+  | "signup";
 function AutoOpenApp({ appUrl }: { appUrl: string }) {
   const lastAttempt = useRef<string | null>(null);
   useEffect(() => {
@@ -44,147 +20,168 @@ function AutoOpenApp({ appUrl }: { appUrl: string }) {
     try {
       window.location.assign(appUrl);
     } catch {
-      // Some browsers require a user gesture. Keep the app-open button usable.
+      /* The explicit link remains available when the browser requires a gesture. */
     }
   }, [appUrl]);
-
   return null;
 }
-
-function AppActions({ appUrl }: { appUrl: string }) {
+function Handoff({
+  path,
+  title,
+  body,
+  code,
+  requiresLogin = false,
+}: {
+  path: string;
+  title: string;
+  body: string;
+  code?: string;
+  requiresLogin?: boolean;
+}) {
+  const { t, home, locale } = useLocale();
+  const appUrl = "vamora://open/" + path;
   return (
-    <div className="hero-actions">
-      <a href={appUrl} className="btn btn-primary">
-        Open in {APP_NAME} App
-      </a>
-      <Link to="/" className="btn btn-ghost">
-        Learn about {APP_NAME}
-      </Link>
-    </div>
-  );
-}
-
-export function OpenAppFallback({ screen }: OpenAppFallbackProps) {
-  const title = screenLabels[screen];
-  const appUrl = buildAppUrl(screen);
-  const requiresLogin = authRequiredScreens.has(screen);
-
-  return (
-    <section className="hero container-narrow">
+    <section className="utility-section container-narrow" lang={locale}>
       <AutoOpenApp appUrl={appUrl} />
-      <span className="eyebrow">{APP_NAME} app link</span>
-      <h1>Open {title} in {APP_NAME}</h1>
-      <p>
-        Opening the {title.toLowerCase()} screen in the mobile app. If the app
-        does not open, install {APP_NAME} and return to this page.
-      </p>
+      <img
+        className="utility-logo"
+        src="/images/logo.webp"
+        width="72"
+        height="76"
+        alt=""
+      />
+      <h1>{title}</h1>
+      <p className="utility-lead">{body}</p>
+      {code && (
+        <div className="code-block">
+          <span>{t("Invite code", "كود الدعوة")}</span>
+          <strong
+            className="invite-code"
+            dir="ltr"
+            aria-label={t("Competition invite code", "كود دعوة المنافسة")}
+          >
+            {code}
+          </strong>
+        </div>
+      )}
       {requiresLogin && (
-        <p className="text-muted">
-          You may need to log in before this screen is available in the app.
+        <p>
+          {t(
+            "You may need to log in before this screen is available in the app.",
+            "قد تحتاج إلى تسجيل الدخول للوصول إلى هذه الشاشة في التطبيق.",
+          )}
         </p>
       )}
-      <AppActions appUrl={appUrl} />
+      <div className="hero-actions">
+        <a href={appUrl} className="btn btn-primary">
+          {t("Open in Vamora App", "افتح في تطبيق Vamora")}
+          <Icon name="arrow" size={19} />
+        </a>
+        <Link to={home} className="btn btn-ghost">
+          {t("Learn about Vamora", "اعرف أكتر عن Vamora")}
+        </Link>
+      </div>
+      <div className="handoff-help">
+        <h2>{t("Don’t have the app yet?", "لسّه ما حمّلتش التطبيق؟")}</h2>
+        <p>
+          {t(
+            "Install Vamora, then return to this link. If opening is blocked in an in-app browser, open this page in Safari or Chrome.",
+            "حمّل Vamora وبعدها ارجع لنفس الرابط. لو التطبيق مش بيفتح من متصفح داخلي، افتح الصفحة في Safari أو Chrome.",
+          )}
+        </p>
+        <StoreLinks />
+      </div>
     </section>
   );
 }
-
+export function OpenAppFallback({ screen }: { screen: AppScreen }) {
+  const { t } = useLocale();
+  const names: Record<AppScreen, [string, string]> = {
+    home: ["Home", "الرئيسية"],
+    upcoming: ["Upcoming Games", "المنافسات القادمة"],
+    play: ["Play", "اللعب"],
+    profile: ["Profile", "الملف الشخصي"],
+    settings: ["Settings", "الإعدادات"],
+    login: ["Log In", "تسجيل الدخول"],
+    signup: ["Sign Up", "إنشاء حساب"],
+  };
+  const title = t(
+    "Open " + names[screen][0] + " in Vamora",
+    "افتح " + names[screen][1] + " في Vamora",
+  );
+  return (
+    <Handoff
+      path={screen}
+      title={title}
+      body={t(
+        "Continue in the mobile app. If it doesn’t open automatically, use the button below.",
+        "كمّل في تطبيق الموبايل. لو ما فتحش تلقائيًا، استخدم الزر الموجود تحت.",
+      )}
+      requiresLogin={["profile", "settings", "login", "signup"].includes(
+        screen,
+      )}
+    />
+  );
+}
 export function JoinInvitePage() {
   const { competitionCode } = useParams();
-  const code = competitionCode?.toUpperCase() ?? '';
-  const appUrl = code
-    ? buildAppUrl(`join/${encodeURIComponent(code)}`)
-    : buildAppUrl('join');
-
+  const { t } = useLocale();
+  const code = competitionCode?.toUpperCase() ?? "";
   return (
-    <>
-      <section className="hero container-narrow">
-        <AutoOpenApp appUrl={appUrl} />
-        <span className="eyebrow">Competition invite</span>
-        <h1>Join a {APP_NAME} Competition</h1>
-        <p>
-          Opening this invitation in the {APP_NAME} app to join the
-          competition. If you do not have the app installed yet, install it
-          first and then return to this page.
-        </p>
-        <AppActions appUrl={appUrl} />
-      </section>
-
-      <section className="section-tight container-narrow">
-        <article className="card card-strong text-center">
-          <h2>{code ? 'Invite code' : 'Have an invite code?'}</h2>
-          {code ? (
-            <p className="invite-code" aria-label="Competition invite code">
-              {code}
-            </p>
-          ) : (
-            <p className="text-muted">
-              Enter your invite code inside the {APP_NAME} app to join a
-              competition.
-            </p>
-          )}
-        </article>
-      </section>
-    </>
+    <Handoff
+      path={code ? "join/" + encodeURIComponent(code) : "join"}
+      code={code}
+      title={t("Join a Vamora competition", "انضم لمنافسة في Vamora")}
+      body={t(
+        code
+          ? "Open this invitation in Vamora to join the competition."
+          : "Enter your invite code inside the Vamora app to join a competition.",
+        code
+          ? "افتح الدعوة في Vamora للانضمام إلى المنافسة."
+          : "اكتب كود الدعوة داخل تطبيق Vamora للانضمام إلى المنافسة.",
+      )}
+    />
   );
 }
-
 export function CaptainInvitePage() {
   const { token } = useParams();
-  // Invitation tokens are case-sensitive; never treat them as join codes.
-  const appUrl = buildAppUrl(`captain-invite/${encodeURIComponent(token ?? '')}`);
-
+  const { t } = useLocale();
   return (
-    <section className="hero container-narrow">
-      <AutoOpenApp appUrl={appUrl} />
-      <span className="eyebrow">Captain invitation</span>
-      <h1>Set up your team in {APP_NAME}</h1>
-      <p>
-        New captains now request approval inside the competition. Unused captain links no longer grant captain access. Previously claimed setup remains available in the app.
-      </p>
-      <p className="text-muted">
-        If the app does not open automatically, tap the button below. If you
-        have not installed {APP_NAME} yet, install it and reopen this link.
-        In an in-app browser, you may need to open this page in Safari or Chrome.
-      </p>
-      <AppActions appUrl={appUrl} />
-    </section>
+    <Handoff
+      path={"captain-invite/" + encodeURIComponent(token ?? "")}
+      title={t("Set up your team in Vamora", "جهّز فريقك في Vamora")}
+      body={t(
+        "New captains now request approval inside the competition. Unused captain links no longer grant captain access. Previously claimed setup remains available in the app.",
+        "الكباتن الجدد بيطلبوا الموافقة من داخل المنافسة. روابط الكابتن غير المستخدمة لم تعد تمنح صلاحية الكابتن. الإعدادات اللي تم قبولها سابقًا تظل متاحة في التطبيق.",
+      )}
+    />
   );
 }
-
 export function CompetitionFallbackPage() {
   const { competitionId } = useParams();
-  const id = competitionId ?? '';
-  const appUrl = buildAppUrl(`competition/${encodeURIComponent(id)}`);
-
+  const { t } = useLocale();
   return (
-    <section className="hero container-narrow">
-      <AutoOpenApp appUrl={appUrl} />
-      <span className="eyebrow">Competition</span>
-      <h1>Open Competition</h1>
-      <p>
-        Opening this competition in the {APP_NAME} mobile app so you can see
-        competition details, fixtures, and standings.
-      </p>
-      {id && (
-        <p className="text-muted">
-          Competition ID: <strong>{id}</strong>
-        </p>
+    <Handoff
+      path={"competition/" + encodeURIComponent(competitionId ?? "")}
+      title={t("Open competition", "افتح المنافسة")}
+      body={t(
+        "Open Vamora to see competition details, fixtures, and standings.",
+        "افتح Vamora لمشاهدة تفاصيل المنافسة والمواجهات والترتيب.",
       )}
-      <AppActions appUrl={appUrl} />
-    </section>
+    />
   );
 }
-
 export function TeamInvitePage() {
   const { token } = useParams();
-  const appUrl = buildAppUrl(`team-invite/${encodeURIComponent(token ?? '')}`);
-  return <section className="hero container-narrow">
-    <AutoOpenApp appUrl={appUrl} />
-    <span className="eyebrow">Team invitation · دعوة فريق</span>
-    <h1>Join your team in {APP_NAME}</h1>
-    <p>Open the app, sign in, and confirm joining the team. Opening this link alone does not add you to the roster.</p>
-    <p lang="ar" dir="rtl">افتح التطبيق وسجل دخولك وأكد انضمامك للفريق. فتح اللينك لوحده مش بيضيفك للفريق.</p>
-    <p className="text-muted">If you have not installed the app, install it and reopen this link. You can also open this page in Safari or Chrome.</p>
-    <AppActions appUrl={appUrl} />
-  </section>;
+  const { t } = useLocale();
+  return (
+    <Handoff
+      path={"team-invite/" + encodeURIComponent(token ?? "")}
+      title={t("Join your team in Vamora", "انضم لفريقك في Vamora")}
+      body={t(
+        "Open the app, sign in, and confirm joining the team. Opening this link alone does not add you to the roster.",
+        "افتح التطبيق وسجّل دخولك وأكّد انضمامك للفريق. فتح الرابط وحده لا يضيفك إلى قائمة الفريق.",
+      )}
+    />
+  );
 }

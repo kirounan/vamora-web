@@ -10,6 +10,17 @@ lerna-debug.log*
 node_modules
 dist
 dist-ssr
+/images/
+/fonts/
+assets/index-*.js
+assets/index-*.css
+.impeccable/review/
+.impeccable/build/
+.impeccable/live/
+.impeccable/questions/
+.impeccable/composition-question.json
+.impeccable/mocks/matchday-b.png*
+.impeccable/mocks/matchday-c.png*
 *.local
 
 # Editor directories and files

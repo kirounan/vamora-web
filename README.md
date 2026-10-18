@@ -1,183 +1,61 @@
-# Vamora — Web
+# Vamora website
 
-Public-facing web pages for the [Vamora](https://vamora.cloud) Real Football Fantasy League mobile app.
+Arabic-first promotional website for Vamora: real football with friends, organized competitions, and fantasy squads built from the people in your group.
 
-This site exists primarily to satisfy Apple App Store and Google Play Store
-requirements:
+Built with React, TypeScript, and Vite. Production output is a static `dist/` directory. Existing VPS/Dokploy startup and port behavior are unchanged.
 
-- A publicly hosted **Privacy Policy** that can be linked from each store listing.
-- A publicly accessible **Account Deletion** flow (Google Play data-safety requirement) that lets users delete their Vamora account from the web.
+## Development and checks
 
-It is built with [Vite](https://vite.dev) + React + TypeScript and is deployed
-as a fully static site.
+- `npm ci` — install the locked dependencies.
+- `npm run dev` — run the existing development server.
+- `npm run build` — type-check, build, and pre-render public Arabic/English pages.
+- `npm run lint` — lint the source.
+- `npm test` — route, locale, metadata, privacy, and mocked account-deletion regression checks.
+- `node scripts/check-site.mjs <running-site-url>` — read-only checks against an already running static server; it does not start a server, change a port, or call the account API.
 
----
+Tests mock all account API requests. They never delete a production account.
 
-## Pages
+## Public pages and SEO
 
-| Path               | Purpose                                                                  |
-| ------------------ | ------------------------------------------------------------------------ |
-| `/`                | Landing page with a link to the privacy policy.                          |
-| `/home`            | Mobile home deep-link fallback.                                          |
-| `/upcoming`        | Mobile upcoming games deep-link fallback.                                |
-| `/play`            | Mobile play/create deep-link fallback.                                   |
-| `/profile`         | Mobile profile deep-link fallback.                                       |
-| `/settings`        | Mobile settings deep-link fallback.                                      |
-| `/join`            | Manual competition invite fallback.                                      |
-| `/join/:code`      | Primary competition invite fallback with an app-open CTA.                |
-| `/captain-invite/:token` | Captain invitation fallback; opens the exact invitation in the app. |
-| `/c/:code`         | Short competition invite alias, redirected to `/join/:code`.             |
-| `/competition/:id` | Competition details fallback with an app-open CTA.                       |
-| `/competitions/:id` | Competition details alias, redirected to `/competition/:id`.            |
-| `/play/join`       | Join alias, redirected to `/join`.                                       |
-| `/play/join/:code` | Join alias, redirected to `/join/:code`.                                 |
-| `/login`           | Mobile login deep-link fallback.                                         |
-| `/signup`          | Mobile signup deep-link fallback.                                        |
-| `/privacy-policy`  | Full GDPR / CCPA-compliant Privacy Policy for the Vamora app.            |
-| `/delete-account`  | Authenticated account-deletion flow (sign in, then confirm). Unlinked.   |
+| URL | Language |
+| --- | --- |
+| `/` | Arabic |
+| `/en` | English |
+| `/privacy-policy` | Arabic |
+| `/en/privacy-policy` | English |
 
-The legacy invite aliases `/competition/join/:code` and
-`/competitions/join/:code` also redirect to `/join/:code`.
+The build renders their visible content and route-specific metadata into HTML. Both languages include canonical URLs, reciprocal language alternates, social previews, and a localized sitemap. Organization and WebSite structured data use factual Vamora information.
 
-> The `/delete-account` page is intentionally **not linked from anywhere in the
-> UI**. It is reachable only by typing the URL directly. It is referenced by
-> the App Store / Play Store listings for compliance reviews.
+`robots.txt`, `sitemap.xml`, favicon variants, an Apple touch icon, and `site.webmanifest` ship in `public/`. Unknown URLs return the branded `404.html` with noindex metadata. App handoff and account-management pages use a separate noindex `app.html` fallback, so they never inherit homepage indexing metadata. Invitation values are excluded from metadata and the sitemap.
 
-The delete-account form ships with **pre-filled test credentials** so app
-store reviewers can sign in with one click. The credentials are defined as
-constants at the top of `src/pages/DeleteAccount.tsx` and can be rotated at
-any time.
+## Existing app links
 
----
+All existing paths are retained: `/home`, `/upcoming`, `/play`, `/profile`, `/settings`, `/login`, `/signup`, `/join`, `/join/:code`, `/team-invite/:token`, `/captain-invite/:token`, and `/competition/:id`.
 
-## Tech stack
+Aliases `/c/:code`, `/competitions/:id`, `/play/join`, `/play/join/:code`, `/competition/join/:code`, and `/competitions/join/:code` remain compatible. Tokens and IDs preserve case and are encoded as a single app-URL path segment; competition join codes retain their existing uppercase normalization. Aliases preserve query strings and fragments.
 
-- [Vite](https://vite.dev) for the dev server and build pipeline
-- [React 19](https://react.dev) + TypeScript
-- [react-router-dom](https://reactrouter.com) for client-side routing
-- A single hand-written CSS theme in `src/styles/global.css` (no UI framework)
+Functional pages stay at their existing URLs and accept `?lang=ar` or `?lang=en`. The language switch preserves the path, token, other query parameters, and fragment. App links retain their automatic attempt and explicit open-app button, with download actions for users without the app.
 
----
+`/.well-known/assetlinks.json` and `/.well-known/apple-app-site-association` are unchanged and must be served as JSON, not HTML. Real signing values must come from the app project; never invent replacements.
 
-## API integration
+## Account deletion
 
-The deletion flow talks to the Vamora API:
+`/delete-account` remains deliberately unlinked. It uses the existing sign-in and authenticated deletion API endpoints at `https://api.vamora.cloud`. The flow requires sign-in, explicit acknowledgement, and a separate final deletion action. Credentials and tokens are not persisted in browser storage.
 
-- `POST {API_BASE_URL}/api/v1/auth/signin` — to obtain a JWT.
-- `DELETE {API_BASE_URL}/api/v1/users/me` — to delete the authenticated account.
+Existing reviewer test credentials remain prefilled. Users can replace them with their own details. Cancellation clears the session; expiry returns to sign-in; failed requests remain recoverable.
 
-The base URL is configured in [`src/config.ts`](src/config.ts):
+The English privacy policy's substance and effective/update dates are preserved, with a faithful Arabic translation. Visual refreshes do not change policy dates.
 
-```ts
-export const API_BASE_URL = 'https://api.vamora.cloud';
-```
+## Production compatibility
 
-Change it there if you need to point the site at a staging environment.
+Hosting is the existing VPS with Dokploy. No deployment was performed, no ports or `.env` files were changed, and **no new environment variables are required**. The existing `npm run start` command and `PORT` behavior remain unchanged.
 
----
+`public/serve.json` is copied to `dist/`. Its explicit public-page rewrites preserve pre-rendered HTML; existing functional routes use `app.html`; unmatched paths use the branded 404. Directory listings are disabled. Keep this configuration with the deployed output. Do not replace it with an unconditional SPA rewrite, which would discard localized HTML and metadata.
 
-## Getting started
+## Assets and design
 
-```bash
-# install dependencies
-npm install
+The shield comes from the supplied original logo. Campaign photos were generated with the built-in image-generation tool. Exact prompts are recorded in `assets/prompts.json` and the accompanying prompt files. `scripts/prepare-assets.mjs` prepares responsive WebP variants and original-logo icons; the output is committed. Noto Sans Arabic is self-hosted with its OFL license.
 
-# start the dev server (http://localhost:5173)
-npm run dev
+The fantasy lineup is a clearly labeled illustration with example names, not an app screenshot or customer evidence. No fabricated reviews, usage statistics, partnerships, payments, or analytics were added.
 
-# type-check + production build (output: dist/)
-npm run build
-
-# preview the production build locally
-npm run preview
-
-# lint
-npm run lint
-
-# deep-link route regression checks
-npm test
-```
-
-Node 18+ is recommended (this repo was built with Node 22).
-
----
-
-## Deployment
-
-The project is a fully static site. After running `npm run build`, the
-contents of `dist/` can be uploaded to any static host:
-
-- **GitHub Pages** — easy + free. Either push `dist/` to a `gh-pages` branch, or use the GitHub Pages action.
-- **Cloudflare Pages / Vercel / Netlify** — connect this repository, set the
-  build command to `npm run build` and the output directory to `dist`. They
-  auto-handle SPA fallback for client-side routing.
-- **Dokploy / Coolify / Nixpacks (VPS)** — this repo ships with a
-  [`nixpacks.toml`](./nixpacks.toml) that pins Node 22 and runs:
-  - `install`: `npm ci`
-  - `build`:   `npm run build`
-  - `start`:   `npm run start` (serves `dist/` via [`serve`](https://www.npmjs.com/package/serve) with the configured SPA fallback on the port from `$PORT`).
-- **Any static file server** — make sure unknown paths (e.g.
-  `/privacy-policy`, `/delete-account`) fall back to `index.html` so React
-  Router can handle them.
-
-> **Node version**: Vite 8 requires Node 20.19+ / 22.12+. The repo enforces
-> Node 22 via `engines.node` in `package.json`, an `.nvmrc` file, and the
-> `nixpacks.toml` config.
-
-Once hosted, add the public URLs of `/privacy-policy` and `/delete-account` to
-your Google Play Console and App Store Connect listings.
-
-The app-link association files are served from:
-
-- `/.well-known/assetlinks.json`
-- `/.well-known/apple-app-site-association`
-
-Replace the placeholder Android package name, Android SHA-256 signing
-fingerprint, iOS Team ID, and iOS bundle ID in those files before relying on
-Universal Links or Android App Links verification.
-
-Captain links use `https://vamora.cloud/captain-invite/:token`. If the OS opens
-the website, the fallback attempts `vamora://open/captain-invite/:token` and
-offers an explicit **Open in Vamora App** button for browsers that require a
-tap. The token's case is preserved. The website never claims the invitation;
-acceptance and authentication happen in the app. Browsers without the app or
-with external-app navigation blocked cannot complete the handoff automatically.
-
-The mobile package/bundle ID is `com.vamora.fanasicomob`. Verified HTTPS opening
-also requires the real Google Play app-signing SHA-256 fingerprint (not merely
-an upload-key fingerprint) and Apple Team ID. Do not invent those values. Serve
-both association files as JSON on `vamora.cloud` and `www.vamora.cloud`, without
-redirects or an HTML fallback. The Apple file must include `/captain-invite/*`.
-`public/serve.json` is copied into `dist` and supplies these content types and
-SPA rewrites for the standalone `serve dist` server. Rewrites deliberately
-exclude dot-prefixed paths so the extensionless Apple association is served
-as a file. Do not add `-s`: its catch-all rewrite can return the SPA HTML for
-that file. Vercel and `_headers` configurations supply the JSON header rules
-for their hosts.
-
----
-
-## Project structure
-
-```
-vamora-web/
-├── public/                # Static assets served as-is (favicon, etc.)
-├── src/
-│   ├── components/        # Shared layout components
-│   ├── lib/               # API client (signin, delete account)
-│   ├── pages/             # Route-level components
-│   ├── styles/            # Global CSS theme
-│   ├── App.tsx            # Router definition
-│   ├── config.ts          # App constants (API URL, support email, dates…)
-│   └── main.tsx           # React entry point
-├── index.html
-├── package.json
-├── tsconfig.json
-└── vite.config.ts
-```
-
----
-
-## License
-
-MIT — see [LICENSE](./LICENSE).
+`PRODUCT.md` records product truth. `DESIGN.md` and `.impeccable/design.json` document the implemented visual system. The approved composition and direction are recorded under `.impeccable/`.

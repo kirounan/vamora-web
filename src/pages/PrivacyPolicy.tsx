@@ -1,3 +1,5 @@
+import { useLocale } from "../lib/locale";
+import PrivacyArabic from "./PrivacyArabic";
 import {
   APP_NAME,
   COMPANY_NAME,
@@ -5,15 +7,16 @@ import {
   POLICY_LAST_UPDATED,
   PRIVACY_EMAIL,
   WEBSITE_URL,
-} from '../config';
+} from "../config";
 
 export default function PrivacyPolicy() {
+  const { ar } = useLocale();
+  if (ar) return <PrivacyArabic />;
   return (
     <article className="policy container-narrow">
-      <span className="eyebrow">Legal</span>
       <h1>Privacy Policy</h1>
       <p className="updated">
-        Effective date: {POLICY_EFFECTIVE_DATE} &nbsp;·&nbsp; Last updated:{' '}
+        Effective date: {POLICY_EFFECTIVE_DATE} &nbsp;·&nbsp; Last updated:{" "}
         {POLICY_LAST_UPDATED}
       </p>
 
@@ -33,7 +36,7 @@ export default function PrivacyPolicy() {
       </p>
 
       <nav className="toc" aria-label="Table of contents">
-        <h3>Contents</h3>
+        <h2>Contents</h2>
         <ol>
           <li>
             <a href="#info-we-collect">Information we collect</a>
@@ -165,9 +168,7 @@ export default function PrivacyPolicy() {
           Detect, prevent, and respond to fraud, abuse, or violations of our
           terms.
         </li>
-        <li>
-          Comply with legal obligations and enforce our agreements.
-        </li>
+        <li>Comply with legal obligations and enforce our agreements.</li>
       </ul>
 
       <h2 id="legal-basis">3. Legal basis for processing (GDPR)</h2>
@@ -203,7 +204,10 @@ export default function PrivacyPolicy() {
       </table>
 
       <h2 id="sharing">4. How we share information</h2>
-      <p>We do <strong>not</strong> sell your personal information. We share information only:</p>
+      <p>
+        We do <strong>not</strong> sell your personal information. We share
+        information only:
+      </p>
       <ul>
         <li>
           <strong>With other users</strong>, when you publish a profile, join a
@@ -212,14 +216,13 @@ export default function PrivacyPolicy() {
         </li>
         <li>
           <strong>With service providers</strong> that process data on our
-          behalf under written agreements (hosting, analytics, crash
-          reporting, authentication, communications).
+          behalf under written agreements (hosting, analytics, crash reporting,
+          authentication, communications).
         </li>
         <li>
           <strong>For legal reasons</strong>, when we believe in good faith that
           disclosure is required by law, regulation, legal process, or
-          governmental request, or to protect our rights or the safety of
-          users.
+          governmental request, or to protect our rights or the safety of users.
         </li>
         <li>
           <strong>In a corporate event</strong> such as a merger, acquisition,
@@ -272,7 +275,7 @@ export default function PrivacyPolicy() {
             <td>Cloud hosting provider</td>
             <td>Backend hosting, storage, and database</td>
             <td>
-              Contact us at{' '}
+              Contact us at{" "}
               <a href={`mailto:${PRIVACY_EMAIL}`}>{PRIVACY_EMAIL}</a> for the
               current list.
             </td>
@@ -330,8 +333,8 @@ export default function PrivacyPolicy() {
           days.
         </li>
         <li>
-          <strong>Backups:</strong> may persist for up to 30 days after
-          deletion before being overwritten.
+          <strong>Backups:</strong> may persist for up to 30 days after deletion
+          before being overwritten.
         </li>
       </ul>
 
@@ -342,11 +345,11 @@ export default function PrivacyPolicy() {
       </p>
       <ul>
         <li>
-          <strong>In-app:</strong> open {APP_NAME} → Settings → Account →
-          Delete Account, and confirm.
+          <strong>In-app:</strong> open {APP_NAME} → Settings → Account → Delete
+          Account, and confirm.
         </li>
         <li>
-          <strong>By email:</strong> contact us at{' '}
+          <strong>By email:</strong> contact us at{" "}
           <a href={`mailto:${PRIVACY_EMAIL}`}>{PRIVACY_EMAIL}</a> from the email
           address associated with your account, and we will process your
           request.
@@ -395,7 +398,7 @@ export default function PrivacyPolicy() {
         </li>
       </ul>
       <p>
-        To exercise any of these rights, contact us at{' '}
+        To exercise any of these rights, contact us at{" "}
         <a href={`mailto:${PRIVACY_EMAIL}`}>{PRIVACY_EMAIL}</a>. We will respond
         within the timeframe required by applicable law.
       </p>
@@ -416,10 +419,10 @@ export default function PrivacyPolicy() {
 
       <h2 id="children">11. Children&rsquo;s privacy</h2>
       <p>
-        {APP_NAME} is not directed to children under 13 (or under 16 in the
-        EEA / UK), and we do not knowingly collect personal information from
-        them. If you believe a child has provided us with personal data, please
-        contact us at <a href={`mailto:${PRIVACY_EMAIL}`}>{PRIVACY_EMAIL}</a>{' '}
+        {APP_NAME} is not directed to children under 13 (or under 16 in the EEA
+        / UK), and we do not knowingly collect personal information from them.
+        If you believe a child has provided us with personal data, please
+        contact us at <a href={`mailto:${PRIVACY_EMAIL}`}>{PRIVACY_EMAIL}</a>{" "}
         and we will promptly delete it.
       </p>
 
@@ -428,25 +431,24 @@ export default function PrivacyPolicy() {
         Your information may be processed and stored in countries other than
         your own, including countries that may have different data-protection
         rules. When we transfer data internationally we use appropriate
-        safeguards, such as Standard Contractual Clauses, where required by
-        law.
+        safeguards, such as Standard Contractual Clauses, where required by law.
       </p>
 
       <h2 id="security">13. Security</h2>
       <p>
         We use industry-standard administrative, technical, and physical
         safeguards to protect your information, including encryption in transit
-        (HTTPS/TLS), secure password hashing, access controls, and audit
-        logging on our backend. However, no method of transmission or storage
-        is 100% secure, and we cannot guarantee absolute security.
+        (HTTPS/TLS), secure password hashing, access controls, and audit logging
+        on our backend. However, no method of transmission or storage is 100%
+        secure, and we cannot guarantee absolute security.
       </p>
 
       <h2 id="changes">14. Changes to this policy</h2>
       <p>
-        We may update this Privacy Policy from time to time. When we do, we
-        will revise the &ldquo;Last updated&rdquo; date at the top of this
-        page. If the changes are material, we will provide a more prominent
-        notice (for example, an in-app banner or email).
+        We may update this Privacy Policy from time to time. When we do, we will
+        revise the &ldquo;Last updated&rdquo; date at the top of this page. If
+        the changes are material, we will provide a more prominent notice (for
+        example, an in-app banner or email).
       </p>
 
       <h2 id="contact">15. Contact us</h2>
@@ -456,17 +458,15 @@ export default function PrivacyPolicy() {
       </p>
       <ul>
         <li>
-          Email:{' '}
-          <a href={`mailto:${PRIVACY_EMAIL}`}>{PRIVACY_EMAIL}</a>
+          Email: <a href={`mailto:${PRIVACY_EMAIL}`}>{PRIVACY_EMAIL}</a>
         </li>
         <li>
-          Website:{' '}
+          Website:{" "}
           <a href={WEBSITE_URL} target="_blank" rel="noreferrer noopener">
             {WEBSITE_URL}
           </a>
         </li>
       </ul>
-
     </article>
   );
 }

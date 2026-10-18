@@ -1,0 +1,494 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-18T10:16:53.906121+00:00",
+  "title": "Design System: Vamora",
+  "extensions": {
+    "colorMeta": {
+      "charcoal": {
+        "role": "neutral",
+        "displayName": "Pitch Charcoal",
+        "tonalRamp": [
+          "oklch(15% 0.0047 196.75)",
+          "oklch(26% 0.0047 196.75)",
+          "oklch(38% 0.0047 196.75)",
+          "oklch(49% 0.0047 196.75)",
+          "oklch(61% 0.0047 196.75)",
+          "oklch(72% 0.0047 196.75)",
+          "oklch(84% 0.0047 196.75)",
+          "oklch(95% 0.0047 196.75)"
+        ]
+      },
+      "panel": {
+        "role": "neutral",
+        "displayName": "Quiet Panel",
+        "tonalRamp": [
+          "oklch(15% 0.0083 169.59)",
+          "oklch(26% 0.0083 169.59)",
+          "oklch(38% 0.0083 169.59)",
+          "oklch(49% 0.0083 169.59)",
+          "oklch(61% 0.0083 169.59)",
+          "oklch(72% 0.0083 169.59)",
+          "oklch(84% 0.0083 169.59)",
+          "oklch(95% 0.0083 169.59)"
+        ]
+      },
+      "section-green": {
+        "role": "neutral",
+        "displayName": "Section Green",
+        "tonalRamp": [
+          "oklch(15% 0.0150 157.59)",
+          "oklch(26% 0.0150 157.59)",
+          "oklch(38% 0.0150 157.59)",
+          "oklch(49% 0.0150 157.59)",
+          "oklch(61% 0.0150 157.59)",
+          "oklch(72% 0.0150 157.59)",
+          "oklch(84% 0.0150 157.59)",
+          "oklch(95% 0.0150 157.59)"
+        ]
+      },
+      "lime": {
+        "role": "primary",
+        "displayName": "Matchday Lime",
+        "tonalRamp": [
+          "oklch(15% 0.2123 123.50)",
+          "oklch(26% 0.2123 123.50)",
+          "oklch(38% 0.2123 123.50)",
+          "oklch(49% 0.2123 123.50)",
+          "oklch(61% 0.2123 123.50)",
+          "oklch(72% 0.2123 123.50)",
+          "oklch(84% 0.2123 123.50)",
+          "oklch(95% 0.2123 123.50)"
+        ]
+      },
+      "lime-hover": {
+        "role": "primary",
+        "displayName": "Lime Hover",
+        "tonalRamp": [
+          "oklch(15% 0.1975 122.45)",
+          "oklch(26% 0.1975 122.45)",
+          "oklch(38% 0.1975 122.45)",
+          "oklch(49% 0.1975 122.45)",
+          "oklch(61% 0.1975 122.45)",
+          "oklch(72% 0.1975 122.45)",
+          "oklch(84% 0.1975 122.45)",
+          "oklch(95% 0.1975 122.45)"
+        ]
+      },
+      "off-white": {
+        "role": "neutral",
+        "displayName": "Warm Off-White",
+        "tonalRamp": [
+          "oklch(15% 0.0093 99.98)",
+          "oklch(26% 0.0093 99.98)",
+          "oklch(38% 0.0093 99.98)",
+          "oklch(49% 0.0093 99.98)",
+          "oklch(61% 0.0093 99.98)",
+          "oklch(72% 0.0093 99.98)",
+          "oklch(84% 0.0093 99.98)",
+          "oklch(95% 0.0093 99.98)"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Muted Grey-Green",
+        "tonalRamp": [
+          "oklch(15% 0.0107 145.47)",
+          "oklch(26% 0.0107 145.47)",
+          "oklch(38% 0.0107 145.47)",
+          "oklch(49% 0.0107 145.47)",
+          "oklch(61% 0.0107 145.47)",
+          "oklch(72% 0.0107 145.47)",
+          "oklch(84% 0.0107 145.47)",
+          "oklch(95% 0.0107 145.47)"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Boundary Green-Grey",
+        "tonalRamp": [
+          "oklch(15% 0.0124 154.67)",
+          "oklch(26% 0.0124 154.67)",
+          "oklch(38% 0.0124 154.67)",
+          "oklch(49% 0.0124 154.67)",
+          "oklch(61% 0.0124 154.67)",
+          "oklch(72% 0.0124 154.67)",
+          "oklch(84% 0.0124 154.67)",
+          "oklch(95% 0.0124 154.67)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Dark Action Ink",
+        "tonalRamp": [
+          "oklch(15% 0.0247 130.03)",
+          "oklch(26% 0.0247 130.03)",
+          "oklch(38% 0.0247 130.03)",
+          "oklch(49% 0.0247 130.03)",
+          "oklch(61% 0.0247 130.03)",
+          "oklch(72% 0.0247 130.03)",
+          "oklch(84% 0.0247 130.03)",
+          "oklch(95% 0.0247 130.03)"
+        ]
+      },
+      "danger": {
+        "role": "neutral",
+        "displayName": "Reserved Danger",
+        "tonalRamp": [
+          "oklch(15% 0.1218 27.48)",
+          "oklch(26% 0.1218 27.48)",
+          "oklch(38% 0.1218 27.48)",
+          "oklch(49% 0.1218 27.48)",
+          "oklch(61% 0.1218 27.48)",
+          "oklch(72% 0.1218 27.48)",
+          "oklch(84% 0.1218 27.48)",
+          "oklch(95% 0.1218 27.48)"
+        ]
+      },
+      "danger-action": {
+        "role": "neutral",
+        "displayName": "Destructive Action",
+        "tonalRamp": [
+          "oklch(15% 0.1681 28.29)",
+          "oklch(26% 0.1681 28.29)",
+          "oklch(38% 0.1681 28.29)",
+          "oklch(49% 0.1681 28.29)",
+          "oklch(61% 0.1681 28.29)",
+          "oklch(72% 0.1681 28.29)",
+          "oklch(84% 0.1681 28.29)",
+          "oklch(95% 0.1681 28.29)"
+        ]
+      },
+      "danger-action-hover": {
+        "role": "neutral",
+        "displayName": "Destructive Action Hover",
+        "tonalRamp": [
+          "oklch(15% 0.1405 27.95)",
+          "oklch(26% 0.1405 27.95)",
+          "oklch(38% 0.1405 27.95)",
+          "oklch(49% 0.1405 27.95)",
+          "oklch(61% 0.1405 27.95)",
+          "oklch(72% 0.1405 27.95)",
+          "oklch(84% 0.1405 27.95)",
+          "oklch(95% 0.1405 27.95)"
+        ]
+      },
+      "white": {
+        "role": "neutral",
+        "displayName": "White",
+        "tonalRamp": [
+          "oklch(15% 0.0000 0.00)",
+          "oklch(26% 0.0000 0.00)",
+          "oklch(38% 0.0000 0.00)",
+          "oklch(49% 0.0000 0.00)",
+          "oklch(61% 0.0000 0.00)",
+          "oklch(72% 0.0000 0.00)",
+          "oklch(84% 0.0000 0.00)",
+          "oklch(95% 0.0000 0.00)"
+        ]
+      },
+      "field": {
+        "role": "neutral",
+        "displayName": "Field Green",
+        "tonalRamp": [
+          "oklch(15% 0.0133 159.84)",
+          "oklch(26% 0.0133 159.84)",
+          "oklch(38% 0.0133 159.84)",
+          "oklch(49% 0.0133 159.84)",
+          "oklch(61% 0.0133 159.84)",
+          "oklch(72% 0.0133 159.84)",
+          "oklch(84% 0.0133 159.84)",
+          "oklch(95% 0.0133 159.84)"
+        ]
+      },
+      "field-border": {
+        "role": "neutral",
+        "displayName": "Field Border",
+        "tonalRamp": [
+          "oklch(15% 0.0241 147.39)",
+          "oklch(26% 0.0241 147.39)",
+          "oklch(38% 0.0241 147.39)",
+          "oklch(49% 0.0241 147.39)",
+          "oklch(61% 0.0241 147.39)",
+          "oklch(72% 0.0241 147.39)",
+          "oklch(84% 0.0241 147.39)",
+          "oklch(95% 0.0241 147.39)"
+        ]
+      },
+      "info-surface": {
+        "role": "neutral",
+        "displayName": "Information Surface",
+        "tonalRamp": [
+          "oklch(15% 0.0291 144.80)",
+          "oklch(26% 0.0291 144.80)",
+          "oklch(38% 0.0291 144.80)",
+          "oklch(49% 0.0291 144.80)",
+          "oklch(61% 0.0291 144.80)",
+          "oklch(72% 0.0291 144.80)",
+          "oklch(84% 0.0291 144.80)",
+          "oklch(95% 0.0291 144.80)"
+        ]
+      },
+      "info-text": {
+        "role": "neutral",
+        "displayName": "Information Text",
+        "tonalRamp": [
+          "oklch(15% 0.0349 134.52)",
+          "oklch(26% 0.0349 134.52)",
+          "oklch(38% 0.0349 134.52)",
+          "oklch(49% 0.0349 134.52)",
+          "oklch(61% 0.0349 134.52)",
+          "oklch(72% 0.0349 134.52)",
+          "oklch(84% 0.0349 134.52)",
+          "oklch(95% 0.0349 134.52)"
+        ]
+      },
+      "error-surface": {
+        "role": "neutral",
+        "displayName": "Error Surface",
+        "tonalRamp": [
+          "oklch(15% 0.0566 29.18)",
+          "oklch(26% 0.0566 29.18)",
+          "oklch(38% 0.0566 29.18)",
+          "oklch(49% 0.0566 29.18)",
+          "oklch(61% 0.0566 29.18)",
+          "oklch(72% 0.0566 29.18)",
+          "oklch(84% 0.0566 29.18)",
+          "oklch(95% 0.0566 29.18)"
+        ]
+      },
+      "error-text": {
+        "role": "neutral",
+        "displayName": "Error Text",
+        "tonalRamp": [
+          "oklch(15% 0.0528 26.84)",
+          "oklch(26% 0.0528 26.84)",
+          "oklch(38% 0.0528 26.84)",
+          "oklch(49% 0.0528 26.84)",
+          "oklch(61% 0.0528 26.84)",
+          "oklch(72% 0.0528 26.84)",
+          "oklch(84% 0.0528 26.84)",
+          "oklch(95% 0.0528 26.84)"
+        ]
+      },
+      "warning-surface": {
+        "role": "neutral",
+        "displayName": "Warning Surface",
+        "tonalRamp": [
+          "oklch(15% 0.0418 88.22)",
+          "oklch(26% 0.0418 88.22)",
+          "oklch(38% 0.0418 88.22)",
+          "oklch(49% 0.0418 88.22)",
+          "oklch(61% 0.0418 88.22)",
+          "oklch(72% 0.0418 88.22)",
+          "oklch(84% 0.0418 88.22)",
+          "oklch(95% 0.0418 88.22)"
+        ]
+      },
+      "warning-text": {
+        "role": "neutral",
+        "displayName": "Warning Text",
+        "tonalRamp": [
+          "oklch(15% 0.0804 86.92)",
+          "oklch(26% 0.0804 86.92)",
+          "oklch(38% 0.0804 86.92)",
+          "oklch(49% 0.0804 86.92)",
+          "oklch(61% 0.0804 86.92)",
+          "oklch(72% 0.0804 86.92)",
+          "oklch(84% 0.0804 86.92)",
+          "oklch(95% 0.0804 86.92)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Arabic Display",
+        "purpose": "Primary Arabic campaign heading; English and mobile use documented composition-specific metrics."
+      },
+      "headline": {
+        "displayName": "Section Headline",
+        "purpose": "Feature, organizer, formats, and FAQ section headings."
+      },
+      "title": {
+        "displayName": "Content Title",
+        "purpose": "Instructional steps and account-panel headings."
+      },
+      "body": {
+        "displayName": "Reading Text",
+        "purpose": "Legal prose, supporting content, and task explanations."
+      },
+      "label": {
+        "displayName": "Action Label",
+        "purpose": "Compact bold action text."
+      }
+    },
+    "shadows": [],
+    "motion": [
+      {
+        "name": "state-transition",
+        "value": ".2s ease",
+        "purpose": "Color changes, store-link lift, and FAQ icon rotation."
+      },
+      {
+        "name": "store-lift",
+        "value": "translateY(-2px)",
+        "purpose": "Pointer hover on store links only."
+      },
+      {
+        "name": "spinner",
+        "value": "spin .75s linear infinite",
+        "purpose": "Busy task feedback; disabled under reduced-motion preference."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "animation:none!important;transition:none!important;scroll-behavior:auto",
+        "purpose": "Respect prefers-reduced-motion: reduce."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "compact",
+        "value": "380px"
+      },
+      {
+        "name": "mobile",
+        "value": "800px"
+      },
+      {
+        "name": "content-tight",
+        "value": "1000px"
+      },
+      {
+        "name": "header-tight",
+        "value": "1100px"
+      },
+      {
+        "name": "wide",
+        "value": "1700px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "description": "The implemented primary action, with hover, focus, and disabled feedback.",
+      "html": "<button class=\"ds-primary\" type=\"button\">حمّل التطبيق</button>",
+      "css": ".ds-primary{font-family:Vamora,sans-serif;display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:50px;padding:12px 24px;border-radius:8px;border:1px solid var(--line,#3e4540);font-size:15px;font-weight:700;text-decoration:none;cursor:pointer;transition:background .2s,color .2s;background:var(--lime,#c5f62f);color:var(--ink,#11170b);border-color:var(--lime,#c5f62f);}.ds-primary:hover{background:#d4ff53;}.ds-primary:focus-visible{outline:3px solid var(--lime,#c5f62f);outline-offset:5px;}.ds-primary:disabled{opacity:.5;cursor:not-allowed;}@media(prefers-reduced-motion:reduce){.ds-primary,.ds-ghost,.ds-danger,.ds-store,.ds-faq svg{transition:none}}",
+      "refersTo": "button-primary"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "description": "The implemented ghost action, with hover, focus, and disabled feedback.",
+      "html": "<button class=\"ds-ghost\" type=\"button\">إلغاء</button>",
+      "css": ".ds-ghost{font-family:Vamora,sans-serif;display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:50px;padding:12px 24px;border-radius:8px;border:1px solid var(--line,#3e4540);font-size:15px;font-weight:700;text-decoration:none;cursor:pointer;transition:background .2s,color .2s;background:transparent;color:var(--text,#f4f3ec);border-color:var(--line,#3e4540);}.ds-ghost:hover{background:var(--panel,#1b201e);}.ds-ghost:focus-visible{outline:3px solid var(--lime,#c5f62f);outline-offset:5px;}.ds-ghost:disabled{opacity:.5;cursor:not-allowed;}@media(prefers-reduced-motion:reduce){.ds-primary,.ds-ghost,.ds-danger,.ds-store,.ds-faq svg{transition:none}}",
+      "refersTo": "button-ghost"
+    },
+    {
+      "name": "Destructive Button",
+      "kind": "button",
+      "description": "The implemented danger action, with hover, focus, and disabled feedback.",
+      "html": "<button class=\"ds-danger\" type=\"button\">احذف حسابي نهائيًا</button>",
+      "css": ".ds-danger{font-family:Vamora,sans-serif;display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:50px;padding:12px 24px;border-radius:8px;border:1px solid var(--line,#3e4540);font-size:15px;font-weight:700;text-decoration:none;cursor:pointer;transition:background .2s,color .2s;background:#b7352c;color:#fff;border-color:#b7352c;}.ds-danger:hover{background:#942c25;}.ds-danger:focus-visible{outline:3px solid var(--lime,#c5f62f);outline-offset:5px;}.ds-danger:disabled{opacity:.5;cursor:not-allowed;}@media(prefers-reduced-motion:reduce){.ds-primary,.ds-ghost,.ds-danger,.ds-store,.ds-faq svg{transition:none}}",
+      "refersTo": "button-danger"
+    },
+    {
+      "name": "Store Link",
+      "kind": "button",
+      "description": "Two-line store action with inline mark; ordering remains LTR.",
+      "html": "<a class=\"ds-store\" dir=\"ltr\" href=\"https://play.google.com/store/apps/details?id=com.vamora.fanasicomob\" aria-label=\"Get Vamora on Google Play\"><svg width=\"29\" height=\"29\" viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><path d=\"m4 3 13 9L4 21V3Z\"/><path d=\"m17 12 3-2c1 .5 1 3 0 4l-3-2Z\"/></svg><span><small>متاح على</small><strong>Google Play</strong></span></a>",
+      "css": ".ds-store{font-family:Vamora,sans-serif;display:inline-flex;align-items:center;justify-content:center;gap:14px;min-width:216px;height:68px;background:rgba(7,11,9,.91);border:1px solid var(--lime,#c5f62f);border-radius:12px;color:#fff;text-align:start;text-decoration:none;transition:background .2s,transform .2s}.ds-store small{display:block;font-size:12px;line-height:1.3}.ds-store strong{font-size:23px;font-weight:700;line-height:1.2}.ds-store:hover{background:#233019;transform:translateY(-2px)}.ds-store:focus-visible{outline:3px solid var(--lime,#c5f62f);outline-offset:5px;}@media(max-width:800px){.ds-store{min-width:165px;height:61px;gap:10px}.ds-store strong{font-size:19px}.ds-store small{font-size:11px}.ds-store svg{width:24px}}@media(prefers-reduced-motion:reduce){.ds-primary,.ds-ghost,.ds-danger,.ds-store,.ds-faq svg{transition:none}}",
+      "refersTo": "store-link"
+    },
+    {
+      "name": "Form Field",
+      "kind": "input",
+      "description": "Visible label with LTR email value; focus and disabled styling match the account task.",
+      "html": "<div class=\"ds-field\" dir=\"rtl\"><label for=\"ds-email\">البريد الإلكتروني</label><input id=\"ds-email\" type=\"email\" autocomplete=\"email\" dir=\"ltr\" placeholder=\"name@example.com\" required></div>",
+      "css": ".ds-field{font-family:Vamora,sans-serif;color:var(--text,#f4f3ec);max-width:420px}.ds-field label{display:block;font-size:14px;font-weight:700;margin-bottom:8px}.ds-field input{font-family:Vamora,sans-serif;min-height:52px;width:100%;border:1px solid #667367;border-radius:8px;background:#101713;color:var(--text,#f4f3ec);padding:12px 16px;font-size:16px;caret-color:var(--lime,#c5f62f)}.ds-field input:focus{outline:2px solid var(--lime,#c5f62f);outline-offset:2px}.ds-field input:disabled{opacity:.6}",
+      "refersTo": "form-input"
+    },
+    {
+      "name": "Section Navigation",
+      "kind": "nav",
+      "description": "Desktop section anchors and persistent language action, with native direction and visible focus.",
+      "html": "<nav class=\"ds-nav\" aria-label=\"التنقل الرئيسي\" dir=\"rtl\"><a href=\"#how-it-works\">كيف تلعب</a><a href=\"#features\">المميزات</a><a href=\"#faq\">الأسئلة الشائعة</a><a class=\"ds-language\" href=\"/en\" lang=\"en\" hreflang=\"en\" aria-label=\"View in English\">EN</a></nav>",
+      "css": ".ds-nav{font-family:Vamora,sans-serif;display:flex;align-items:center;gap:44px;color:var(--text,#f4f3ec)}.ds-nav a{font-size:15px;white-space:nowrap;color:inherit;text-decoration:none;text-underline-offset:5px}.ds-nav a:hover{text-decoration:underline}.ds-nav a:focus-visible{outline:3px solid var(--lime,#c5f62f);outline-offset:5px;}.ds-nav .ds-language{min-width:44px;min-height:44px;padding:8px;display:grid;place-items:center}@media(max-width:1100px){.ds-nav{gap:20px}}"
+    },
+    {
+      "name": "Competition Format Tab",
+      "kind": "custom",
+      "description": "Selected tab from the real roving-tab selector; runtime supplies selection and keyboard navigation.",
+      "html": "<div class=\"ds-tabs\" role=\"tablist\" aria-label=\"أنظمة المنافسات\" dir=\"rtl\"><button type=\"button\" role=\"tab\" aria-selected=\"true\" tabindex=\"0\">يوم كورة</button><button type=\"button\" role=\"tab\" aria-selected=\"false\" tabindex=\"-1\">دوري</button><button type=\"button\" role=\"tab\" aria-selected=\"false\" tabindex=\"-1\">كأس</button><button type=\"button\" role=\"tab\" aria-selected=\"false\" tabindex=\"-1\">مجموعات وإقصائيات</button></div>",
+      "css": ".ds-tabs{display:flex;gap:4px;padding-bottom:16px;border-bottom:1px solid var(--line,#3e4540)}.ds-tabs button{font-family:Vamora,sans-serif;flex:1;background:transparent;border:0;color:var(--muted,#b7bdb7);padding:15px 18px;min-height:56px;font-size:17px;border-radius:8px;font-weight:700;cursor:pointer}.ds-tabs button[aria-selected=true]{background:var(--lime,#c5f62f);color:#17200b}.ds-tabs button:hover:not([aria-selected=true]){background:var(--panel,#1b201e);color:var(--text,#f4f3ec)}.ds-tabs button:focus-visible{outline:3px solid var(--lime,#c5f62f);outline-offset:5px;}@media(max-width:800px){.ds-tabs{display:grid;grid-template-columns:1fr 1fr;gap:6px}.ds-tabs button{font-size:15px;padding:12px 8px}}",
+      "refersTo": "format-tab-selected"
+    },
+    {
+      "name": "Editorial Format Panel",
+      "kind": "card",
+      "description": "Flat explanatory panel with a concise definition list and mobile stacking.",
+      "html": "<article class=\"ds-panel\" dir=\"rtl\" tabindex=\"0\"><div><h3>يوم واحد. منافسة للآخر.</h3><p>حوّل حجز الكورة المعتاد لمنافسة.</p></div><dl><div><dt>مناسب لـ</dt><dd>حجز الكورة الجاي</dd></div><div><dt>اللاعبين بيتابعوا إيه</dt><dd>نتائج الماتشات ونقاط الفانتازي</dd></div></dl></article>",
+      "css": ".ds-panel{font-family:Vamora,sans-serif;display:grid;grid-template-columns:1fr 1fr;gap:12%;background:var(--panel,#1b201e);color:var(--text,#f4f3ec);border-radius:12px;padding:44px}.ds-panel h3{font-size:30px;line-height:1.6;margin:0 0 16px}.ds-panel p{font-size:16px;line-height:1.9;color:var(--muted,#b7bdb7);margin:0}.ds-panel dl{margin:0;display:grid;gap:20px}.ds-panel dt{font-size:12px;color:var(--muted,#b7bdb7);margin-bottom:7px}.ds-panel dd{margin:0;font-size:16px}.ds-panel:focus-visible{outline:3px solid var(--lime,#c5f62f);outline-offset:5px;}@media(max-width:1000px){.ds-panel{gap:7%;padding:30px}}@media(max-width:800px){.ds-panel{grid-template-columns:1fr;gap:28px;padding:28px}.ds-panel h3{font-size:27px}.ds-panel dl{padding-top:24px;border-top:1px solid var(--line,#3e4540)}}",
+      "refersTo": "format-panel"
+    },
+    {
+      "name": "FAQ Disclosure",
+      "kind": "custom",
+      "description": "Native keyboard-operable disclosure with a rotating plus and a divider.",
+      "html": "<details class=\"ds-faq\" dir=\"rtl\"><summary><span>إزاي أنضم لصحابي؟</span><svg width=\"21\" height=\"21\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" aria-hidden=\"true\"><path d=\"M12 5v14M5 12h14\"/></svg></summary><p>حمّل Vamora وافتح رابط الدعوة اللي المنظّم بعته.</p></details>",
+      "css": ".ds-faq{font-family:Vamora,sans-serif;border-bottom:1px solid var(--line,#3e4540);color:var(--text,#f4f3ec)}.ds-faq summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:26px 0;font-size:19px;line-height:1.7;cursor:pointer;font-weight:700}.ds-faq summary::-webkit-details-marker{display:none}.ds-faq summary svg{color:var(--lime,#c5f62f);transition:transform .2s;flex-shrink:0}.ds-faq[open] summary svg{transform:rotate(45deg)}.ds-faq summary:focus-visible{outline:3px solid var(--lime,#c5f62f);outline-offset:5px;}.ds-faq p{padding:0 0 28px;margin:0;max-width:75ch;font-size:16px;line-height:1.9;color:var(--muted,#b7bdb7)}@media(max-width:800px){.ds-faq summary{font-size:17px;padding-block:22px}.ds-faq p{font-size:15px}}@media(prefers-reduced-motion:reduce){.ds-primary,.ds-ghost,.ds-danger,.ds-store,.ds-faq svg{transition:none}}"
+    },
+    {
+      "name": "Warning Message",
+      "kind": "custom",
+      "description": "Semantic warning block for the explicit account-deletion confirmation.",
+      "html": "<div class=\"ds-warning\" role=\"note\" dir=\"rtl\"><strong>هذا الإجراء دائم.</strong><p>سيؤدي هذا إلى حذف حسابك والبيانات الشخصية المرتبطة به نهائيًا.</p></div>",
+      "css": ".ds-warning{font-family:Vamora,sans-serif;background:#3c3219;color:#ffe5aa;border-radius:8px;padding:18px 20px;font-size:14px;line-height:1.9}.ds-warning p{color:inherit;margin:16px 0 0}",
+      "refersTo": "alert-warning"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Contemporary Matchday Programme",
+    "overview": "Vamora treats amateur football with the confidence of a matchday publication. A charcoal canvas, electric lime, substantial Arabic typography, and real-feeling football photography give friends and their own performances the attention usually reserved for professional players. The supplied shield remains the identity anchor; the wordmark is live text.\n\nThe system is spacious and editorial. Large type and broad photographs establish hierarchy, while utility screens become quiet, readable tasks in the same visual language. Arabic is the primary reading experience; English receives equally deliberate composition. Motion is restrained and communicates a state change rather than performing for its own sake.",
+    "keyCharacteristics": [
+      "Image-first football identity with the supplied shield.",
+      "Charcoal, lime, and off-white with subdued green surface changes.",
+      "Strong bilingual typography and generous vertical rhythm.",
+      "Native RTL/LTR reading order with explicit directional exceptions.",
+      "Flat surfaces and clear, keyboard-accessible interaction states."
+    ],
+    "rules": [
+      {
+        "name": "The Purposeful Lime Rule",
+        "body": "Use lime to identify action, selection, emphasis, or a deliberate chapter surface; preserve a clear hierarchy inside each context.",
+        "section": "colors"
+      },
+      {
+        "name": "The Arabic Rhythm Rule",
+        "body": "Preserve the generous line heights that keep Arabic clear; translate the composition as well as the words when switching language.",
+        "section": "typography"
+      },
+      {
+        "name": "The Flat Surface Rule",
+        "body": "Use tonal separation and borders for structure; preserve the incumbent system's shadow-free surfaces.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do keep the supplied shield, charcoal/lime/off-white identity, and live wordmark together.",
+      "Do give Arabic and English deliberate typography, native direction, and equal visual quality.",
+      "Do use broad football imagery and substantial headings where a campaign surface calls for them.",
+      "Do use the existing spacing, flat panels, and quiet green surfaces to organize content.",
+      "Do preserve visible keyboard focus, accessible control semantics, readable state messages, and reduced motion.",
+      "Do make legal and account tasks calm, narrow, and readable within the same system."
+    ],
+    "donts": [
+      "Don't redraw the shield, bake interface copy into photography, or replace live controls with generated badge imagery.",
+      "Don't introduce decorative shadows or competing brand accents into the established flat palette.",
+      "Don't force Arabic headline metrics or RTL direction onto English text, store marks, or exact codes.",
+      "Don't replace real friends and amateur-football imagery with invented customer endorsements, statistics, or app screenshots.",
+      "Don't make hover or animation the only way to discover an action or understand a state.",
+      "Don't canonize a capture failure or automated image-gate limitation as a visual-system rule."
+    ]
+  }
+}

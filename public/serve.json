@@ -1,17 +1,158 @@
 {
   "cleanUrls": false,
+  "directoryListing": false,
   "rewrites": [
-    { "source": "/[!.]*", "destination": "/index.html" },
-    { "source": "/[!.]*/**", "destination": "/index.html" }
+    {
+      "source": "/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/en",
+      "destination": "/en/index.html"
+    },
+    {
+      "source": "/privacy-policy",
+      "destination": "/privacy-policy/index.html"
+    },
+    {
+      "source": "/en/privacy-policy",
+      "destination": "/en/privacy-policy/index.html"
+    },
+    {
+      "source": "/home",
+      "destination": "/app.html"
+    },
+    {
+      "source": "/upcoming",
+      "destination": "/app.html"
+    },
+    {
+      "source": "/play",
+      "destination": "/app.html"
+    },
+    {
+      "source": "/profile",
+      "destination": "/app.html"
+    },
+    {
+      "source": "/settings",
+      "destination": "/app.html"
+    },
+    {
+      "source": "/login",
+      "destination": "/app.html"
+    },
+    {
+      "source": "/signup",
+      "destination": "/app.html"
+    },
+    {
+      "source": "/join",
+      "destination": "/app.html"
+    },
+    {
+      "source": "/delete-account",
+      "destination": "/app.html"
+    },
+    {
+      "source": "/join/**",
+      "destination": "/app.html"
+    },
+    {
+      "source": "/team-invite/**",
+      "destination": "/app.html"
+    },
+    {
+      "source": "/captain-invite/**",
+      "destination": "/app.html"
+    },
+    {
+      "source": "/c/**",
+      "destination": "/app.html"
+    },
+    {
+      "source": "/competition/**",
+      "destination": "/app.html"
+    },
+    {
+      "source": "/competitions/**",
+      "destination": "/app.html"
+    },
+    {
+      "source": "/play/join",
+      "destination": "/app.html"
+    },
+    {
+      "source": "/play/join/**",
+      "destination": "/app.html"
+    }
   ],
   "headers": [
     {
       "source": ".well-known/apple-app-site-association",
-      "headers": [{ "key": "Content-Type", "value": "application/json" }]
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/json"
+        }
+      ]
     },
     {
       "source": ".well-known/assetlinks.json",
-      "headers": [{ "key": "Content-Type", "value": "application/json" }]
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "source": "assets/index-*",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "**/*.html",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-cache"
+        }
+      ]
+    },
+    {
+      "source": "**",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        }
+      ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/en/",
+      "destination": "/en",
+      "type": 301
+    },
+    {
+      "source": "/privacy-policy/",
+      "destination": "/privacy-policy",
+      "type": 301
+    },
+    {
+      "source": "/en/privacy-policy/",
+      "destination": "/en/privacy-policy",
+      "type": 301
     }
   ]
 }
