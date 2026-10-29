@@ -80,7 +80,8 @@ test('admin login keeps credentials out of browser storage and uses the separate
   document.querySelector('input[name=password]').value = 'test-password';
   await submit();
   const login = calls.find((c) => c.url.endsWith('/admin/auth/login'));
-  assert.ok(login); assert.deepEqual(JSON.parse(login.options.body), { username: 'operator', password: 'test-password' });
+  assert.ok(login); assert.equal(login.url, 'https://api.vamora.net/api/v1/admin/auth/login');
+  assert.deepEqual(JSON.parse(login.options.body), { username: 'operator', password: 'test-password' });
   assert.equal(login.options.credentials, 'include'); assert.ok(!login.options.headers.Authorization);
   assert.equal(window.localStorage.length, 0); assert.equal(window.sessionStorage.length, 0);
 });

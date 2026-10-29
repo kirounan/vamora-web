@@ -40,7 +40,7 @@ Functional pages stay at their existing URLs and accept `?lang=ar` or `?lang=en`
 
 ## Account deletion
 
-`/delete-account` remains deliberately unlinked. It uses the existing sign-in and authenticated deletion API endpoints at `https://api.vamora.cloud`. The flow requires sign-in, explicit acknowledgement, and a separate final deletion action. Credentials and tokens are not persisted in browser storage.
+`/delete-account` remains deliberately unlinked. It uses the existing sign-in and authenticated deletion API endpoints at `https://api.vamora.net`. The flow requires sign-in, explicit acknowledgement, and a separate final deletion action. Credentials and tokens are not persisted in browser storage.
 
 Existing reviewer test credentials remain prefilled. Users can replace them with their own details. Cancellation clears the session; expiry returns to sign-in; failed requests remain recoverable.
 
@@ -58,6 +58,12 @@ The existing `PORT` behavior is preserved. `/admin` and all its nested routes
 serve a separate English shell with `noindex, nofollow` and `no-store` response
 headers. The dashboard has no public navigation or sitemap links. Its separate
 backend credentials are configured only on the API; no web credentials are needed.
+
+Production uses `https://vamora.net` and `https://api.vamora.net`. If the web build
+environment defines `VITE_ADMIN_API_BASE_URL`, remove an old `.cloud` override or
+set it to `https://api.vamora.net` and rebuild. On the backend, set
+`ADMIN_WEB_ORIGINS=https://vamora.net`. Open the dashboard on the `.net` website
+and sign in again after changing hosts; admin cookies stay scoped to their API host.
 
 ## Assets and design
 

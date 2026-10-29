@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://vamora.cloud/sitemap.xml
+Sitemap: https://vamora.net/sitemap.xml

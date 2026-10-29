@@ -20,7 +20,7 @@ for (const [path, lang, needle] of [
   assert.ok(doc.querySelector("#root").textContent.includes(needle), path);
   assert.equal(
     doc.querySelector("link[rel=canonical]")?.href,
-    "https://vamora.cloud" + path,
+    "https://vamora.net" + path,
     path,
   );
   assert.equal(
@@ -78,7 +78,7 @@ for (const path of [
   console.log("PASS image", path);
 }
 for (const [path, needle] of [
-  ["/robots.txt", "Sitemap: https://vamora.cloud/sitemap.xml"],
+  ["/robots.txt", "Sitemap: https://vamora.net/sitemap.xml"],
   ["/sitemap.xml", "<urlset"],
   ["/site.webmanifest", "Vamora"],
 ]) {
