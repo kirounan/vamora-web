@@ -30,6 +30,7 @@ Fantasy squads use real friends. Real match events drive points, player ratings,
 - Private admin at `/admin` is English only, unlisted, and `noindex, nofollow`, with no homepage, public navigation, or sitemap references. Username and password are configured through the backend `.env`.
 - Admin supports full Gameday and Hybrid operations, including transactional recovery; other competition formats remain read-only. Name-only reusable virtual players (guests), ongoing enrollment, and team assignment take priority. Pause/resume is deferred.
 - Admin uses separate backend endpoints in `D:/2MK/Fantastico-API`. The mobile app/repository and existing mobile API contracts must remain unchanged. Setup is documented in that repository's `docs/private-web-admin.md`.
+- Private admin analytics inspect retained app business records across all formats/phases, with rating/fantasy evidence, searchable reports, routed subtabs, CSV and chart PNG exports. They do not introduce mobile telemetry, app-open metrics, or analytics on the public website. Reports remain read-only and distinguish registered accounts from virtual players.
 
 ## Brand Commitments
 

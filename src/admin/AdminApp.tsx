@@ -8,6 +8,7 @@ import { Field, Loading, Notice, Submit } from './components';
 import AdminCompetitions from './AdminCompetitions';
 import AdminCompetition from './AdminCompetition';
 import AdminVirtualPlayers from './AdminVirtualPlayers';
+import { AnalyticsOverview, AnalyticsReport, AnalyticsSectionPage, AnalyticsEntityPage, AnalyticsRecordPage, AdminIndexRedirect, AdminCompetitionRedirect, AdminNotFound } from './AnalyticsViews';
 import './admin.css';
 
 function Login({ signedIn }: { signedIn: (username: string) => void }) {
@@ -33,6 +34,7 @@ function Login({ signedIn }: { signedIn: (username: string) => void }) {
 export default function AdminApp() {
   const [session, setSession] = useState<string | null>(null);
   const [checking, setChecking] = useState(true); const [error, setError] = useState('');
+  const [navigationOpen,setNavigationOpen]=useState(false);
   const navigate = useNavigate();
   useEffect(() => {
     let active = true;
@@ -52,14 +54,22 @@ export default function AdminApp() {
       : !session ? <>{error && <Notice error>{error}</Notice>}<Login signedIn={(user) => { setSession(user); setError(''); }} /></>
       : <><a href="#admin-content" className="admin-skip">Skip to content</a>
         <aside className="admin-sidebar"><Link to="/admin" className="admin-brand"><img src="/icon-48.png" alt="" width="32" height="32" /><span>VAMORA<small>Administration</small></span></Link>
-          <nav aria-label="Administration"><NavLink to="/admin" end><Icon name="trophy" size={20} />Competitions</NavLink>
-            <NavLink to="/admin/virtual-players"><Icon name="people" size={20} />Virtual players</NavLink></nav>
+          <button className="admin-button admin-navigation-toggle" aria-expanded={navigationOpen} aria-controls="admin-navigation" onClick={()=>setNavigationOpen(!navigationOpen)}><Icon name="menu" size={18}/>Browse administration</button>
+          <nav id="admin-navigation" className={navigationOpen?'is-open':''} aria-label="Administration">{[['overview','Overview'],['competitions','Competitions'],['users','Users'],['matches','Matches'],['ratings','Ratings'],['fantasy','Fantasy'],['teams','Teams'],['community','Community'],['operations','Operations'],['virtual-players','Virtual players']].map(([path,title])=><NavLink key={path} to={'/admin/'+path} onClick={()=>{setNavigationOpen(false);document.getElementById('admin-content')?.focus();}}><Icon name={path==='competitions'?'trophy':path==='matches'?'ball':'people'} size={20}/>{title}</NavLink>)}</nav>
           <div className="admin-sidebar-bottom"><span>Signed in as <strong>{session}</strong></span><button className="admin-button" onClick={logout}>Sign out</button></div>
         </aside>
-        <main id="admin-content" className="admin-content">{error && <Notice error>{error}</Notice>}
-          <Routes><Route index element={<AdminCompetitions />} /><Route path="competitions/:id" element={<AdminCompetition />} />
+        <main id="admin-content" tabIndex={-1} className="admin-content">{error && <Notice error>{error}</Notice>}
+          <Routes><Route index element={<AdminIndexRedirect />} /><Route path="overview" element={<AnalyticsOverview/>}/>
+            <Route path="competitions" element={<AdminCompetitions/>}/><Route path="competitions/:id" element={<AdminCompetitionRedirect/>}/><Route path="competitions/:id/:section" element={<AdminCompetition />} />
+            <Route path="users" element={<AnalyticsReport resource="users"/>}/><Route path="users/:userId/:section?" element={<AnalyticsEntityPage kind="users"/>}/>
+            <Route path="matches" element={<AnalyticsReport resource="matches"/>}/><Route path="matches/:matchId/:section?" element={<AnalyticsEntityPage kind="matches"/>}/>
+            <Route path="teams" element={<AnalyticsReport resource="teams"/>}/><Route path="teams/:teamId/:section?" element={<AnalyticsEntityPage kind="teams"/>}/>
+            <Route path="ratings/changes/:recordId" element={<AnalyticsRecordPage resource="ratings"/>}/><Route path="ratings/:section?" element={<AnalyticsSectionPage area="ratings"/>}/>
+            <Route path="fantasy/managers/:participantId/:section?" element={<AnalyticsEntityPage kind="participants"/>}/><Route path="fantasy/markets/:marketId" element={<AnalyticsRecordPage resource="markets"/>}/><Route path="fantasy/:section?" element={<AnalyticsSectionPage area="fantasy"/>}/>
+            <Route path="community/:section?" element={<AnalyticsSectionPage area="community"/>}/><Route path="operations/:section?" element={<AnalyticsSectionPage area="operations"/>}/>
+            <Route path="records/:resource/:recordId" element={<AnalyticsRecordPage/>}/>
             <Route path="virtual-players" element={<AdminVirtualPlayers />} />
-            <Route path="*" element={<div className="admin-empty"><h1>Page not found</h1><Link to="/admin">Back to competitions</Link></div>} /></Routes>
+            <Route path="*" element={<AdminNotFound/>} /></Routes>
         </main></>}
   </div>;
 }

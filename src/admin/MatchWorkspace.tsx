@@ -1,6 +1,7 @@
 import { matchSideName } from './api';
 import { formNumber, formString } from './form';
 import { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { adminApi, changeRequest, dateTime, message, personName, readable } from './api';
 import type { Competition, Match, MatchEvent } from './api';
 import type { RunAction } from './AdminCompetition';
@@ -69,8 +70,11 @@ function Lineups({ competition, match, run }: { competition: Competition; match:
   </Operation>;
 }
 export default function MatchWorkspace({ competition, run, saved, editable }: { competition: Competition; run: RunAction; saved: () => Promise<void>; editable: boolean }) {
-  const [selectedId, setSelectedId] = useState(''); const [editEvent, setEditEvent] = useState<MatchEvent | null>(null);
-  const [filter, setFilter] = useState('ALL'); const [timingError, setTimingError] = useState('');
+  const [params,setParams]=useSearchParams(); const selectedId=params.get('matchId')||'', filter=params.get('matchStatus')||'ALL';
+  const setSelectedId=(id:string)=>setParams(old=>{const next=new URLSearchParams(old);next.set('matchId',id);return next;});
+  const setFilter=(value:string)=>setParams(old=>{const next=new URLSearchParams(old);if(value==='ALL')next.delete('matchStatus');else next.set('matchStatus',value);return next;});
+  const [editEvent, setEditEvent] = useState<MatchEvent | null>(null);
+  const [timingError, setTimingError] = useState('');
   const matches = [...competition.matches].sort((a, b) => Number(['LIVE', 'PENALTIES'].includes(b.status)) - Number(['LIVE', 'PENALTIES'].includes(a.status)));
   const match = matches.find((m) => m.id === selectedId) || matches[0];
   if (!match) return <Empty title="No matches yet">{competition.type === 'GAMEDAY' ? 'Create a match in Fixtures & bracket when the teams are ready.' : 'Assign groups and generate fixtures to prepare the tournament.'}</Empty>;

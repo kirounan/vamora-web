@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useLocation, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import Icon from '../components/Icon';
 import { adminApi, changeRequest, formatName, message, personName } from './api';
 import type { Competition, Person } from './api';
@@ -9,13 +9,19 @@ import { CompetitionRevision } from './revision';
 import PlayerEnrollment from './PlayerEnrollment';
 import MatchWorkspace from './MatchWorkspace';
 import { ActivityPanel, FixturesPanel, ResultsPanel, SettingsPanel, TeamsPanel } from './TournamentPanels';
+import { AdminNotFound, AnalyticsTabs, AnalyticsReport, CompetitionAnalytics } from './AnalyticsViews';
 export type RunAction = (action: string, data: Record<string, unknown>, reason: string, requestId?: string, revision?: string) => Promise<string>;
 export default function AdminCompetition() {
-  const { id } = useParams(); const [data, setData] = useState<Competition | null>(null);
-  const [error, setError] = useState(''); const [tab, setTab] = useState('Live matches');
+  const { id, section } = useParams(); const [data, setData] = useState<Competition | null>(null);
+  const navigate = useNavigate(), location = useLocation(); const [searchParams, setSearchParams] = useSearchParams();
+  const names:Record<string,string>={live:'Live matches',overview:'Overview',players:'Players',teams:'Teams',fixtures:'Fixtures & bracket',results:'Results',fantasy:'Fantasy',ratings:'Ratings',settings:'Settings',activity:'Activity'};
+  const tab=names[section||'live'];
+  const setTab=(name:string)=>{const key=Object.keys(names).find(k=>names[k]===name)||'live';navigate('/admin/competitions/'+id+'/'+key+location.search);};
+  const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [enrollment, setEnrollment] = useState<{ person: Person | null; key: number } | null>(null);
-  const [updated, setUpdated] = useState<Date | null>(null); const [playerSearch, setPlayerSearch] = useState('');
+  const [updated, setUpdated] = useState<Date | null>(null); const playerSearch=searchParams.get('playerSearch')||'';
+  const setPlayerSearch=(value:string)=>setSearchParams(old=>{const next=new URLSearchParams(old);if(value)next.set('playerSearch',value);else next.delete('playerSearch');next.delete('page');return next;});
   const latest = useRef(0); const enrollmentRef = useRef<HTMLDivElement>(null);
   const load = useCallback(async () => {
     const version = ++latest.current;
@@ -32,7 +38,8 @@ export default function AdminCompetition() {
       ...changeRequest(reason, requestId), expectedUpdatedAt: revision || data.updatedAt, action, data: payload,
     }); const refreshed = await load(); return refreshed?.updatedAt || data.updatedAt;
   }
-  if (!data) return <><Link className="admin-back" to="/admin">Back to competitions</Link>{error ? <Notice error>{error}<button className="admin-button" onClick={() => void load()}>Retry</button></Notice> : <Loading />}</>;
+  if(!tab)return <AdminNotFound/>;
+  if (!data) return <><Link className="admin-back" to="/admin/competitions">Back to competitions</Link>{error ? <Notice error>{error}<button className="admin-button" onClick={() => void load()}>Retry</button></Notice> : <Loading />}</>;
   const editable = ['GAMEDAY', 'GROUP_KNOCKOUT'].includes(data.type);
   const canEnroll = editable && ['DRAFT', 'OPEN', 'ONGOING'].includes(data.status);
   const live = data.matches.filter((m) => ['LIVE', 'HALFTIME', 'PENALTIES'].includes(m.status));
@@ -52,8 +59,8 @@ export default function AdminCompetition() {
       await load(); const team = data.teams.find((t) => t.id === result.teamId);
       setSuccess(personName(result.user) + (team ? ' was added to ' + team.name + ' as a substitute.' : ' was enrolled without a team.'));
     }} />}</div>
-    <nav className="admin-tabs" aria-label="Competition sections">{['Live matches', 'Players', 'Teams', 'Fixtures & bracket', 'Results & fantasy', 'Settings', 'Activity'].map((name) =>
-      <button key={name} aria-current={tab === name ? 'page' : undefined} onClick={() => setTab(name)}>{name}</button>)}</nav>
+    <AnalyticsTabs base={'/admin/competitions/'+id} tabs={Object.entries(names)}/>
+    {['overview','fantasy','ratings'].includes(section||'')&&<CompetitionAnalytics id={data.id} section={section!}/>}
     {tab === 'Live matches' && <MatchWorkspace competition={data} run={run} saved={async () => { await load(); }} editable={editable} />}
     {tab === 'Players' && <section><div className="admin-section-heading"><h2>Players</h2><FieldSearch value={playerSearch} set={setPlayerSearch} /></div>
       {!data.players.length ? <Empty title="No players yet">Use Add player to enroll a registered player or a virtual guest.</Empty> : <div className="admin-table-wrap"><table className="admin-table">
@@ -78,9 +85,9 @@ export default function AdminCompetition() {
     </section>}
     {tab === 'Teams' && <TeamsPanel competition={data} run={run} editable={editable} />}
     {tab === 'Fixtures & bracket' && <FixturesPanel competition={data} run={run} editable={editable} />}
-    {tab === 'Results & fantasy' && <ResultsPanel competition={data} editable={editable} saved={async () => { await load(); }} />}
+    {tab === 'Results' && <ResultsPanel competition={data} editable={editable} saved={async () => { await load(); }} />}
     {tab === 'Settings' && <SettingsPanel competition={data} run={run} editable={editable} saved={async () => { await load(); }} />}
-    {tab === 'Activity' && <ActivityPanel competitionId={data.id} />}
+    {tab === 'Activity' && <><AnalyticsReport resource="activity" scope={{competitionId:data.id}} heading={false}/><ActivityPanel competitionId={data.id} /></>}
   </CompetitionRevision.Provider>;
 }
 function FieldSearch({ value, set }: { value: string; set: (value: string) => void }) {

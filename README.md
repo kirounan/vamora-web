@@ -65,6 +65,15 @@ set it to `https://api.vamora.net` and rebuild. On the backend, set
 `ADMIN_WEB_ORIGINS=https://vamora.net`. Open the dashboard on the `.net` website
 and sign in again after changing hosts; admin cookies stay scoped to their API host.
 
+Private analytics live under `/admin/overview`, `/admin/users`, `/admin/ratings`,
+`/admin/fantasy`, and the other administration sections. Competition and profile
+subtabs, search, sorting, filters and pagination have direct URLs. Reports use
+independent read-only `/api/v1/admin/analytics` endpoints. CSV exports include the
+entire filtered result up to an explicit 50,000-row cap; chart PNGs include the
+filter context and reporting time. Africa/Cairo calendar boundaries apply to
+date filters. These reports describe stored business records, not app opens or
+mobile telemetry, and are not linked from the public site.
+
 ## Assets and design
 
 The shield comes from the supplied original logo. Campaign photos were generated with the built-in image-generation tool. Exact prompts are recorded in `assets/prompts.json` and the accompanying prompt files. `scripts/prepare-assets.mjs` prepares responsive WebP variants and original-logo icons; the output is committed. Noto Sans Arabic is self-hosted with its OFL license.
