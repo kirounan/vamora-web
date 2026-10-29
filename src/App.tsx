@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import {
   Navigate,
   Route,
@@ -18,6 +18,7 @@ import {
   JoinInvitePage,
   OpenAppFallback,
 } from "./pages/DeepLinkFallbacks";
+const AdminApp = lazy(() => import("./admin/AdminApp"));
 
 function ScrollToTop() {
   const { pathname, hash } = useLocation();
@@ -64,6 +65,7 @@ export default function App() {
     <>
       <ScrollToTop />
       <Routes>
+        <Route path="admin/*" element={<Suspense fallback={<div role="status">Loading administration…</div>}><AdminApp /></Suspense>} />
         <Route element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="en" element={<Home />} />

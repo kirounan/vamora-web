@@ -25,6 +25,11 @@ try {
         ),
     );
   }
+  const { getPageMeta, renderHead } = await server.ssrLoadModule("/src/lib/seo.ts");
+  await mkdir("dist/admin", { recursive: true });
+  await writeFile("dist/admin/index.html", template
+    .replace(/<html[^>]*>/, '<html lang="en" dir="ltr">')
+    .replace("<!--route-head-->", renderHead(getPageMeta("/admin"))));
   const fallback = renderPage("/not-found");
   await writeFile(
     "dist/app.html",

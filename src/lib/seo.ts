@@ -9,13 +9,15 @@ export interface PageMeta {
   index: boolean;
   canonical?: string;
   alternate?: string;
-  kind: "home" | "privacy" | "utility";
+  kind: "home" | "privacy" | "utility" | "admin";
 }
 export function getPageMeta(pathname: string, search = ""): PageMeta {
   const path = pathname.replace(/\/$/, "") || "/";
   const locale = resolveLocale(path, search);
   const ar = locale === "ar";
   const base = { locale, index: false, kind: "utility" as const };
+  if (path === "/admin" || path.startsWith("/admin/"))
+    return { locale: "en", index: false, kind: "admin", title: "Tournament control | Vamora", description: "Private Vamora administration." };
   if (path === "/" || path === "/en")
     return {
       ...base,
@@ -83,7 +85,7 @@ export function renderHead(meta: PageMeta) {
   const tags = [
     `<title data-route-meta>${escape(meta.title)}</title>`,
     tag("description", meta.description),
-    tag("robots", meta.index ? "index, follow" : "noindex, follow"),
+    tag("robots", meta.index ? "index, follow" : meta.kind === "admin" ? "noindex, nofollow" : "noindex, follow"),
     tag("og:title", meta.title, true),
     tag("og:description", meta.description, true),
     tag("og:type", "website", true),
