@@ -7,7 +7,7 @@ import { MemoryRouter,Route,Routes,useLocation,useNavigate } from 'react-router-
 let vite,AdminApp,Chart,root,dom,createRoot,calls;
 const originals={window:globalThis.window,document:globalThis.document,FormData:globalThis.FormData,Event:globalThis.Event,HTMLElement:globalThis.HTMLElement,fetch:globalThis.fetch};
 const columns=[{key:'id',label:'ID',type:'text',primary:true},{key:'player',label:'Player',type:'text',primary:true},{key:'mu',label:'Rating',type:'number',primary:true}];
-const catalogue=['users','ratings','competitions','matches','participants','teams','activity'].map(resource=>({resource,title:resource,columns,filters:['userId','competitionId','userKind','verified'],notes:[]}));
+const catalogue=['users','ratings','competitions','matches','participants','teams','activity','enrollments'].map(resource=>({resource,title:resource,columns,filters:['userId','competitionId','userKind','verified'],notes:[]}));
 const competition={id:'c1',name:'Route verification',uniqueCode:'ROUTE',type:'GAMEDAY',status:'ONGOING',updatedAt:'2026-10-29T12:00:00Z',location:'Pitch',additionalLocations:[],players:[],teams:[],matches:[],rounds:[],admins:[],groups:[],tournamentSlots:[],captainRequests:[],resultPhotos:[],creator:{id:'owner',name:'Organizer'},maxPlayersPerTeam:6,playersInMatch:5};
 before(async()=>{
   const initial=new JSDOM('<div></div>');globalThis.window=initial.window;globalThis.document=initial.window.document;({createRoot}=await import('react-dom/client'));Object.assign(globalThis,originals);initial.window.close();
@@ -21,7 +21,7 @@ beforeEach(()=>{
     if(path.endsWith('/auth/session')||path.endsWith('/auth/login'))return Response.json({username:'verification',csrfToken:'csrf'});
     if(path.endsWith('/analytics/catalogue'))return Response.json(catalogue);
     if(path==='/api/v1/admin/competitions/c1')return Response.json(competition);
-    if(/\/analytics\/(users|competitions)\/(u1|c1)$/.test(path))return Response.json({resource:path.includes('/users/')?'users':'competitions',item:{id:path.includes('/users/')?'u1':'c1',name:'Verification player'},columns,generatedAt:'2026-10-29T12:00:00Z',notes:[]});
+    if(/\/analytics\/(users|competitions)\/(u1|c1)$/.test(path))return Response.json({resource:path.includes('/users/')?'users':'competitions',item:{id:path.includes('/users/')?'u1':'c1',name:'Verification player',imageUrl:'/uploads/profiles/avatar.webp',birthday:'2000-03-04T00:00:00Z',gender:'MALE'},columns,generatedAt:'2026-10-29T12:00:00Z',notes:[],relatedCounts:{playerParticipations:7}});
     const resource=path.split('/').at(-1);return Response.json({resource,title:'Recorded '+resource,columns,filters:catalogue.find(c=>c.resource===resource)?.filters||[],items:[{id:'row-1',player:'Verification player',mu:30}],total:65,page:Number(u.searchParams.get('page')||1),pageSize:Number(u.searchParams.get('pageSize')||30),generatedAt:'2026-10-29T12:00:00Z',timezone:'Africa/Cairo',applied:Object.fromEntries(u.searchParams),charts:[],notes:[]});
   };
   root=createRoot(document.getElementById('root'));
@@ -62,4 +62,16 @@ test('charts include keyboard values, a data table and complete export context',
   const context='User IDs: '+Array.from({length:4},(_,i)=>'player-'+i+'-'.repeat(30)).join(',')+' · Format: GROUP_KNOCKOUT';
   await act(async()=>root.render(createElement(Chart,{chart:{title:'Rating progression',kind:'line',points:[{label:'2026-10-28',value:59},{label:'2026-10-29',value:61}]},context,generatedAt:'2026-10-29T12:00:00Z'})));
   assert.equal(document.querySelectorAll('circle[tabindex="0"]').length,2);assert.match(document.querySelector('svg').textContent,/GROUP_KNOCKOUT/);assert.match(document.body.textContent,/View exact chart values/);assert.equal(document.querySelectorAll('tbody tr').length,2);assert.match(document.querySelector('svg').textContent,/Africa\/Cairo/);
+});
+test('users opens all registered accounts newest first and provides explicit registration order',async()=>{
+  await open('/admin/users');const call=calls.find(c=>c.url.includes('/analytics/users?'));assert.ok(call);
+  const query=new URL(call.url).searchParams;assert.equal(query.get('range'),'all');assert.equal(query.get('sort'),'createdAt');assert.equal(query.get('dir'),'desc');
+  const select=[...document.querySelectorAll('select')].find(e=>e.querySelector('option[value=custom]'));assert.equal(select.value,'desc');
+  await act(async()=>{select.value='asc';select.dispatchEvent(new Event('change',{bubbles:true}));});await settle();assert.match(location(),/dir=asc/);assert.ok(calls.some(c=>c.url.includes('/analytics/users?')&&new URL(c.url).searchParams.get('dir')==='asc'));
+});
+test('profile shows its image, account records, and paginated joined-competition preview',async()=>{
+  await open('/admin/users/u1/overview');const image=document.querySelector('img[alt="Profile photo of Verification player"]');assert.ok(image);assert.equal(image.src,'https://api.vamora.net/uploads/profiles/avatar.webp');
+  assert.match(document.body.textContent,/Account records and history/);assert.match(document.body.textContent,/Recently joined competitions/);
+  const preview=calls.find(c=>c.url.includes('/analytics/enrollments?'));assert.ok(preview);const query=new URL(preview.url).searchParams;assert.equal(query.get('userId'),'u1');assert.equal(query.get('sort'),'joinedAt');assert.equal(query.get('dir'),'desc');assert.equal(query.get('range'),'all');
+  await click([...document.querySelectorAll('nav[aria-label="Report sections"] a')].find(a=>a.textContent==='Joined competitions'));assert.equal(location(),'/admin/users/u1/competitions');
 });

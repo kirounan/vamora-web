@@ -61,7 +61,7 @@ export default function AdminApp() {
         <main id="admin-content" tabIndex={-1} className="admin-content">{error && <Notice error>{error}</Notice>}
           <Routes><Route index element={<AdminIndexRedirect />} /><Route path="overview" element={<AnalyticsOverview/>}/>
             <Route path="competitions" element={<AdminCompetitions/>}/><Route path="competitions/:id" element={<AdminCompetitionRedirect/>}/><Route path="competitions/:id/:section" element={<AdminCompetition />} />
-            <Route path="users" element={<AnalyticsReport resource="users"/>}/><Route path="users/:userId/:section?" element={<AnalyticsEntityPage kind="users"/>}/>
+            <Route path="users" element={<AnalyticsReport resource="users" defaults={{range:'all',sort:'createdAt',dir:'desc'}} showCharts={false}/>}/><Route path="users/:userId/:section?" element={<AnalyticsEntityPage kind="users"/>}/>
             <Route path="matches" element={<AnalyticsReport resource="matches"/>}/><Route path="matches/:matchId/:section?" element={<AnalyticsEntityPage kind="matches"/>}/>
             <Route path="teams" element={<AnalyticsReport resource="teams"/>}/><Route path="teams/:teamId/:section?" element={<AnalyticsEntityPage kind="teams"/>}/>
             <Route path="ratings/changes/:recordId" element={<AnalyticsRecordPage resource="ratings"/>}/><Route path="ratings/:section?" element={<AnalyticsSectionPage area="ratings"/>}/>

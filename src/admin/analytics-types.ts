@@ -10,6 +10,7 @@ export interface RecordReport {
   generatedAt: string; timezone: string; notes: string[]; configuration?: Record<string, unknown>;
   breakdown?: { components: { label: string; value: number }[]; evidenceAvailable: boolean; displayChange: number };
   pointsBreakdown?: { components: { label:string;value:number }[];recordedPoints:number;source:string;reconciled:boolean };
+  relatedCounts?: Record<string,number>;
 }
 export const number = (value: unknown) => typeof value === 'number' ? value!==0&&Math.abs(value)<0.0001?value.toExponential(3):(Object.is(value,-0)?0:value).toLocaleString('en-GB', { maximumFractionDigits: 6 }) : typeof value==='string'&&/^-?\d+(\.\d+)?$/.test(value)?value:'—';
 export const label = (key: string) => key==='GROUP_KNOCKOUT'?'Hybrid':(key===key.toUpperCase()?key.toLowerCase():key.replace(/([A-Z])/g, ' $1')).replaceAll('_',' ').replace(/^./, x => x.toUpperCase());

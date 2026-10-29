@@ -74,6 +74,12 @@ filter context and reporting time. Africa/Cairo calendar boundaries apply to
 date filters. These reports describe stored business records, not app opens or
 mobile telemetry, and are not linked from the public site.
 
+Users opens the complete registered-user directory with newest-first registration
+sorting and pagination. Open a player name or Details for their image, full
+business profile, related-record counts, and history tabs. Joined competitions
+and the profile preview sort by actual enrollment time and have independent
+server pagination; older accounts are included by default.
+
 ## Assets and design
 
 The shield comes from the supplied original logo. Campaign photos were generated with the built-in image-generation tool. Exact prompts are recorded in `assets/prompts.json` and the accompanying prompt files. `scripts/prepare-assets.mjs` prepares responsive WebP variants and original-logo icons; the output is committed. Noto Sans Arabic is self-hosted with its OFL license.
