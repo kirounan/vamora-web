@@ -1,0 +1,4 @@
+# Use serve.json's explicit public/private routes and response headers.
+# Nixpacks' automatic Vite/Caddy SPA fallback ignores that configuration.
+[start]
+cmd = "npm run start"

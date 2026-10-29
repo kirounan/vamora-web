@@ -52,6 +52,13 @@ Hosting is the existing VPS with Dokploy. No deployment was performed, no ports 
 
 `public/serve.json` is copied to `dist/`. Its explicit public-page rewrites preserve pre-rendered HTML; existing functional routes use `app.html`; unmatched paths use the branded 404. Directory listings are disabled. Keep this configuration with the deployed output. Do not replace it with an unconditional SPA rewrite, which would discard localized HTML and metadata.
 
+`nixpacks.toml` explicitly runs the existing `npm run start` command so Nixpacks
+uses this routing configuration instead of its automatic Vite/Caddy SPA server.
+The existing `PORT` behavior is preserved. `/admin` and all its nested routes
+serve a separate English shell with `noindex, nofollow` and `no-store` response
+headers. The dashboard has no public navigation or sitemap links. Its separate
+backend credentials are configured only on the API; no web credentials are needed.
+
 ## Assets and design
 
 The shield comes from the supplied original logo. Campaign photos were generated with the built-in image-generation tool. Exact prompts are recorded in `assets/prompts.json` and the accompanying prompt files. `scripts/prepare-assets.mjs` prepares responsive WebP variants and original-logo icons; the output is committed. Noto Sans Arabic is self-hosted with its OFL license.
